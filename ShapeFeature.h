@@ -5,14 +5,17 @@
 #include <opencv\highgui.h>
 #include "Histogram.h"
 
+/*
+ * 形状特征类，由两个边缘点方向直方图构成
+ */
 class ShapeFeature {
 private:
-	Histogram vertical;
-	Histogram horizontal;
+	Histogram vertical;		// 灰度图像边缘点竖直方向直方图
+	Histogram horizontal;	// 灰度图像边缘点水平方向直方图
 
 public:
-	void calcVertical(int*** matrix, int row, int col);
-	void calcHorizontal(int** matrix, int row, int col);
+	void calcVertical(IplImage* grey);		// 根据灰度直方图计算竖直方向边缘点直方图
+	void calcHorizontal(IplImage* grey);	// 根据灰度直方图计算水平方向边缘点直方图
 };
 
 #endif

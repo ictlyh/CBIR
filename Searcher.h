@@ -5,13 +5,16 @@
 #include "Image.h"
 #include "ImageLib.h"
 
+/*
+ * ËÑË÷Àà
+ */
 class Searcher {
 private:
-	char* queryImage;
-	ImageLib imageLib;
+	char* queryImage;		// ¼ìË÷Í¼ÏñÂ·¾¶
+	ImageLib imageLib;		// Í¼ÏñÌØÕ÷¿â
 public:
-	list<Image> search();
-	list<Image> reSearch(list<Image>  feedback);
+	list<Image> search();							// Í¼Ïñ¼ìË÷
+	list<Image> reSearch(list<Image>  feedback);	// ¶ş´ÎÍ¼Ïñ¼ìË÷
 };
 
 #endif
