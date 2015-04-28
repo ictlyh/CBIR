@@ -1,4 +1,4 @@
-#ifndef __COLORFEATURE__H_
+﻿#ifndef __COLORFEATURE__H_
 #define __COLORFEATURE__H_
 
 #include <opencv\cv.h>
@@ -6,25 +6,25 @@
 #include "Histogram.h"
 
 /*
- * (HSV�ռ�)��ɫ������
+ * (HSV空间)颜色特征类
  */
 class ColorFeature {
 private:
-	Histogram h;		// H����ֱ��ͼ
-	Histogram s;		// S����ֱ��ͼ
-	Histogram v;		// V����ֱ��ͼ
-	Histogram grey;		// �Ҷ�ֱ��ͼ
+	Histogram h;		// H分量直方图
+	Histogram s;		// S分量直方图
+	Histogram v;		// V分量直方图
+	Histogram grey;		// 灰度直方图
 
 public:
-	Histogram getH();					// ��ȡH����ֱ��ͼ
-	Histogram getS();					// ��ȡS����ֱ��ͼ
-	Histogram getV();					// ��ȡV����ֱ��ͼ
-	Histogram getGrey();				// ��ȡ�Ҷ�ֱ��ͼ
-	void calcH(IplImage* hplane);		// ����H����ֱ��ͼ
-	void calcS(IplImage* splane);		// ����S����ֱ��ͼ
-	void calcV(IplImage* vplane);		// ����V����ֱ��ͼ
-	void calsGrey(IplImage* greyplane);	// ����Ҷ�ֱ��ͼ
-	void calcHSV(IplImage** planes);	// ����HSVֱ��ͼ
+	Histogram getH();					// 获取H分量直方图
+	Histogram getS();					// 获取S分量直方图
+	Histogram getV();					// 获取V分量直方图
+	Histogram getGrey();				// 获取灰度直方图
+	void calcH(IplImage* hplane);		// 计算H分量直方图
+	void calcS(IplImage* splane);		// 计算S分量直方图
+	void calcV(IplImage* vplane);		// 计算V分量直方图
+	void calsGrey(IplImage* greyplane);	// 计算灰度直方图
+	void calcHSV(IplImage** planes);	// 计算HSV直方图
 };
 
 #endif

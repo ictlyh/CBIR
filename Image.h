@@ -1,23 +1,23 @@
-#ifndef __IMAGE__H_
+ï»¿#ifndef __IMAGE__H_
 #define __IMAGE__H_
 
 #include "Feature.h"
 
 /*
- * Í¼Ïñ(ÎÄ¼ş)Àà
+ * å›¾åƒ(æ–‡ä»¶)ç±»
  */
 class Image {
 private:
-	char* path;			// Í¼ÏñÂ·¾¶
-	Feature feature;	// Í¼ÏñÌØÕ÷
+	char* path;			// å›¾åƒè·¯å¾„
+	Feature feature;	// å›¾åƒç‰¹å¾
 
 public:
 	Image(char* p);
-	char* getPath();			// »ñÈ¡Í¼ÏñÂ·¾¶
-	void showImage();			// ÏÔÊ¾Í¼Ïñ
-	void calcColorFeature();	// ¼ÆËãÑÕÉ«ÌØÕ÷
-	void calcShapeFeature();	// ¼ÆËãĞÎ×´ÌØÕ÷
-	void calcFeature();			// ¼ÆËãÌØÕ÷
+	char* getPath();			// è·å–å›¾åƒè·¯å¾„
+	void showImage();			// æ˜¾ç¤ºå›¾åƒ
+	void calcColorFeature();	// è®¡ç®—é¢œè‰²ç‰¹å¾
+	void calcShapeFeature();	// è®¡ç®—å½¢çŠ¶ç‰¹å¾
+	void calcFeature();			// è®¡ç®—ç‰¹å¾
 };
 
 #endif

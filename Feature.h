@@ -1,21 +1,21 @@
-#ifndef __FEATURE__H_
+ï»¿#ifndef __FEATURE__H_
 #define __FEATURE__H_
 
 #include "ColorFeature.h"
 #include "ShapeFeature.h"
 
 /*
- * Í¼ÏñÌØÕ÷Àà
+ * å›¾åƒç‰¹å¾ç±»
  */
 class Feature {
 private:
-	ColorFeature colorFeature;		// ÑÕÉ«ÌØÕ÷
-	ShapeFeature shapeFeature;		// ĞÎ×´ÌØÕ÷
+	ColorFeature colorFeature;		// é¢œè‰²ç‰¹å¾
+	ShapeFeature shapeFeature;		// å½¢çŠ¶ç‰¹å¾
 public:
-	ColorFeature getColorFeature();	// »ñÈ¡ÑÕÉ«ÌØÕ÷
-	ShapeFeature getShapeFeature();	// »ñÈ¡ĞÎ×´ÌØÕ÷
-	void calcColorFeature(IplImage** planes);	// ¼ÆËãÑÕÉ«ÌØÕ÷
-	void calcColorFeature(IplImage* greyplane);	// ¼ÆËãĞÎ×´ÌØÕ÷
+	ColorFeature getColorFeature();	// è·å–é¢œè‰²ç‰¹å¾
+	ShapeFeature getShapeFeature();	// è·å–å½¢çŠ¶ç‰¹å¾
+	void calcColorFeature(IplImage** planes);	// è®¡ç®—é¢œè‰²ç‰¹å¾
+	void calcColorFeature(IplImage* greyplane);	// è®¡ç®—å½¢çŠ¶ç‰¹å¾
 };
 
 #endif

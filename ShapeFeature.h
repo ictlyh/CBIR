@@ -1,4 +1,4 @@
-#ifndef __SHAPEFEATURE__H_
+ï»¿#ifndef __SHAPEFEATURE__H_
 #define __SHAPEFEATURE__H_
 
 #include <opencv\cv.h>
@@ -6,16 +6,16 @@
 #include "Histogram.h"
 
 /*
- * ĞÎ×´ÌØÕ÷Àà£¬ÓÉÁ½¸ö±ßÔµµã·½ÏòÖ±·½Í¼¹¹³É
+ * å½¢çŠ¶ç‰¹å¾ç±»ï¼Œç”±ä¸¤ä¸ªè¾¹ç¼˜ç‚¹æ–¹å‘ç›´æ–¹å›¾æ„æˆ
  */
 class ShapeFeature {
 private:
-	Histogram vertical;		// »Ò¶ÈÍ¼Ïñ±ßÔµµãÊúÖ±·½ÏòÖ±·½Í¼
-	Histogram horizontal;	// »Ò¶ÈÍ¼Ïñ±ßÔµµãË®Æ½·½ÏòÖ±·½Í¼
+	Histogram vertical;		// ç°åº¦å›¾åƒè¾¹ç¼˜ç‚¹ç«–ç›´æ–¹å‘ç›´æ–¹å›¾
+	Histogram horizontal;	// ç°åº¦å›¾åƒè¾¹ç¼˜ç‚¹æ°´å¹³æ–¹å‘ç›´æ–¹å›¾
 
 public:
-	void calcVertical(IplImage* grey);		// ¸ù¾İ»Ò¶ÈÖ±·½Í¼¼ÆËãÊúÖ±·½Ïò±ßÔµµãÖ±·½Í¼
-	void calcHorizontal(IplImage* grey);	// ¸ù¾İ»Ò¶ÈÖ±·½Í¼¼ÆËãË®Æ½·½Ïò±ßÔµµãÖ±·½Í¼
+	void calcVertical(IplImage* grey);		// æ ¹æ®ç°åº¦ç›´æ–¹å›¾è®¡ç®—ç«–ç›´æ–¹å‘è¾¹ç¼˜ç‚¹ç›´æ–¹å›¾
+	void calcHorizontal(IplImage* grey);	// æ ¹æ®ç°åº¦ç›´æ–¹å›¾è®¡ç®—æ°´å¹³æ–¹å‘è¾¹ç¼˜ç‚¹ç›´æ–¹å›¾
 };
 
 #endif

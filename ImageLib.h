@@ -1,29 +1,29 @@
-#ifndef __IMAGELIB__H_
+ï»¿#ifndef __IMAGELIB__H_
 #define __IMAGELIB__H_
 
 #include <list>
 #include "Image.h"
 
 /*
- * Í¼Ïñ¿âÀà
+ * å›¾åƒåº“ç±»
  */
 class ImageLib {
 private:
-	char* libDir;			// Í¼Ïñ¿â¶¥²ãÎÄ¼ş¼ĞÃû³Æ
-	char* libFile;			// Í¼ÏñÌØÕ÷¿âÎÄ¼şÃû³Æ
-	list<Image> imageList;	// Í¼ÏñÁ´±í
+	char* libDir;			// å›¾åƒåº“é¡¶å±‚æ–‡ä»¶å¤¹åç§°
+	char* libFile;			// å›¾åƒç‰¹å¾åº“æ–‡ä»¶åç§°
+	list<Image> imageList;	// å›¾åƒé“¾è¡¨
 
 public:
 	ImageLib(char* dir, char* lib);
 	ImageLib(char* dir);
 
-	char* getLibDir();				// »ñÈ¡Í¼Ïñ¿âÎÄ¼ş¼ĞÃû³Æ
-	char* getLibFile();				// »ñÈ¡Í¼ÏñÌØÕ÷¿âÎÄ¼şÃû³Æ
-	void setLibDir(char* dir);		// ÉèÖÃÍ¼Ïñ¿âÎÄ¼ş¼ĞÃû³Æ
-	void setLibFile(char* file);	// ÉèÖÃÍ¼ÏñÌØÕ÷¿âÎÄ¼şÃû³Æ
-	void buildImageLib();			// ¹¹½¨Í¼ÏñÌØÕ÷¿â
-	void loadImageLib();			// ´ÓÍ¼ÏñÌØÕ÷¿âÎÄ¼ş¼ÓÔØÍ¼ÏñÌØÕ÷¿â
-	void saveImageLib();			// ±£´æÍ¼ÏñÌØÕ÷¿âµ½Í¼ÏñÌØÕ÷¿âÎÄ¼ş
+	char* getLibDir();				// è·å–å›¾åƒåº“æ–‡ä»¶å¤¹åç§°
+	char* getLibFile();				// è·å–å›¾åƒç‰¹å¾åº“æ–‡ä»¶åç§°
+	void setLibDir(char* dir);		// è®¾ç½®å›¾åƒåº“æ–‡ä»¶å¤¹åç§°
+	void setLibFile(char* file);	// è®¾ç½®å›¾åƒç‰¹å¾åº“æ–‡ä»¶åç§°
+	void buildImageLib();			// æ„å»ºå›¾åƒç‰¹å¾åº“
+	void loadImageLib();			// ä»å›¾åƒç‰¹å¾åº“æ–‡ä»¶åŠ è½½å›¾åƒç‰¹å¾åº“
+	void saveImageLib();			// ä¿å­˜å›¾åƒç‰¹å¾åº“åˆ°å›¾åƒç‰¹å¾åº“æ–‡ä»¶
 };
 
 #endif

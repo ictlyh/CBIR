@@ -1,23 +1,23 @@
-#ifndef __HISTGRAM__H_
+ï»¿#ifndef __HISTGRAM__H_
 #define __HISTGRAM__H_
 
 /*
- * Ö±·½Í¼Àà
+ * ç›´æ–¹å›¾ç±»
  */
 class Histogram {
 private:
-	int dim;			// Ö±·½Í¼ bin ÊıÄ¿
-	float *feature;		// Ö±·½Í¼ bin ¸ß¶È(0-1)
+	int dim;			// ç›´æ–¹å›¾ bin æ•°ç›®
+	float *feature;		// ç›´æ–¹å›¾ bin é«˜åº¦(0-1)
 
 public:
 	Histogram();
 	Histogram(int dim);
 	
-	void setDim(int d);							// ÉèÖÃÖ±·½Í¼ bin ÊıÄ¿
-	void setFeature(int index, float value);	// ÉèÖÃÖ±·½Í¼ bin ¸ß¶È
-	int getDim();								// »ñÈ¡Ö±·½Í¼ bin ÊıÄ¿
-	float getFeature(int index);				// »ñÈ¡Ö±·½Í¼Ä³¸ö bin ¸ß¶È
-	float* getFeature();						// »ñÈ¡Ö±·½Í¼ËùÓĞ bin ¸ß¶È
+	void setDim(int d);							// è®¾ç½®ç›´æ–¹å›¾ bin æ•°ç›®
+	void setFeature(int index, float value);	// è®¾ç½®ç›´æ–¹å›¾ bin é«˜åº¦
+	int getDim();								// è·å–ç›´æ–¹å›¾ bin æ•°ç›®
+	float getFeature(int index);				// è·å–ç›´æ–¹å›¾æŸä¸ª bin é«˜åº¦
+	float* getFeature();						// è·å–ç›´æ–¹å›¾æ‰€æœ‰ bin é«˜åº¦
 };
 
 #endif

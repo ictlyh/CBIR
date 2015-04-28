@@ -1,4 +1,4 @@
-#ifndef __SEARCHER__H_
+ï»¿#ifndef __SEARCHER__H_
 #define __SEARCHER__H_
 
 #include <list>
@@ -6,15 +6,15 @@
 #include "ImageLib.h"
 
 /*
- * ËÑË÷Àà
+ * æœç´¢ç±»
  */
 class Searcher {
 private:
-	char* queryImage;		// ¼ìË÷Í¼ÏñÂ·¾¶
-	ImageLib imageLib;		// Í¼ÏñÌØÕ÷¿â
+	char* queryImage;		// æ£€ç´¢å›¾åƒè·¯å¾„
+	ImageLib imageLib;		// å›¾åƒç‰¹å¾åº“
 public:
-	list<Image> search();							// Í¼Ïñ¼ìË÷
-	list<Image> reSearch(list<Image>  feedback);	// ¶ş´ÎÍ¼Ïñ¼ìË÷
+	list<Image> search();							// å›¾åƒæ£€ç´¢
+	list<Image> reSearch(list<Image>  feedback);	// äºŒæ¬¡å›¾åƒæ£€ç´¢
 };
 
 #endif

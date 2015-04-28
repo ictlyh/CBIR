@@ -4,18 +4,18 @@
 #include "Image.h"
 
 /*
- * ÏàËÆ¶È¼ÆËãÀà£¬°üÀ¨¼ÆËãÍ¼ÏñÏàËÆ¶ÈºÍÖ±·½Í¼ÏàËÆ¶È
+ * ç›¸ä¼¼åº¦è®¡ç®—ç±»ï¼ŒåŒ…æ‹¬è®¡ç®—å›¾åƒç›¸ä¼¼åº¦å’Œç›´æ–¹å›¾ç›¸ä¼¼åº¦
  */
 class Similarity {
 private:
-	float colorWeight;		// ÑÕÉ«ÌØÕ÷È¨ÖØ
-	float shapeWeight;		// ĞÎ×´ÌØÕ÷È¨ÖØ
+	float colorWeight;		// é¢œè‰²ç‰¹å¾æƒé‡
+	float shapeWeight;		// å½¢çŠ¶ç‰¹å¾æƒé‡
 
 public:
-	Similarity();										// ÎŞ²Î¹¹Ôìº¯Êı
-	Similarity(float color, float shape);				// Ö¸¶¨È¨ÖØ¹¹Ôìº¯Êı
-	float similarity(Image a, Image b);					// ¼ÆËãÁ½¸öÍ¼ÏñµÄÏàËÆ¶È
-	float similarity(Histogram hisa, Histogram hisb);	// ¼ÆËãÁ½¸öÖ±·½Í¼µÄÏàËÆ¶È
+	Similarity();										// æ— å‚æ„é€ å‡½æ•°
+	Similarity(float color, float shape);				// æŒ‡å®šæƒé‡æ„é€ å‡½æ•°
+	float similarity(Image a, Image b);					// è®¡ç®—ä¸¤ä¸ªå›¾åƒçš„ç›¸ä¼¼åº¦
+	float similarity(Histogram hisa, Histogram hisb);	// è®¡ç®—ä¸¤ä¸ªç›´æ–¹å›¾çš„ç›¸ä¼¼åº¦
 };
 
 #endif
