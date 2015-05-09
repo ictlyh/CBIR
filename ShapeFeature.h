@@ -14,10 +14,10 @@ private:
 	Histogram horizontal;	// 灰度图像边缘点水平方向直方图
 
 public:
-	Histogram getVertical();
-	Histogram getHorizontal();
-	void setHorizontal(Histogram hori);
-	void setVertival(Histogram verti);
+	Histogram getVertical();				// 获取竖直方向边缘点直方图
+	Histogram getHorizontal();				// 获取水平方向边缘点直方图
+	void setHorizontal(Histogram hori);		// 设置水平方向边缘点直方图
+	void setVertival(Histogram verti);		// 设置竖直方向边缘点直方图
 	void calcVertical(IplImage* gray);		// 根据灰度直方图计算竖直方向边缘点直方图
 	void calcHorizontal(IplImage* gray);	// 根据灰度直方图计算水平方向边缘点直方图
 };

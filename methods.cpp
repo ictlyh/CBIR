@@ -84,13 +84,20 @@ void lineToFeature(char* line, list<string> &liststr)
 	}
 }
 
+/*
+ * 根据反馈生成二次查询图像
+ * 现在是将原查询和反馈图像进行平均，也可以通过调整颜色和形状权重获得新的查询图像
+ */
 Image newQueryByFeedback(list<Image> feedback, Image query)
 {
+	// 实例化二次查询图像
 	Image img("");
 	Histogram h, s, v, gray, horizontal, vertical;
 	Histogram features[] = { h, s, v, gray, horizontal, vertical };
+
 	int size = feedback.size();
 
+	// 设置二次查询图像各个特征的维数
 	h.setDim(query.getFeature().getColorFeature().getH().getDim());
 	s.setDim(query.getFeature().getColorFeature().getS().getDim());
 	v.setDim(query.getFeature().getColorFeature().getV().getDim());
@@ -109,9 +116,12 @@ Image newQueryByFeedback(list<Image> feedback, Image query)
 	float *horiSum = (float*)malloc(sizeof(float) * horizontal.getDim());
 	float *vertiSum = (float*)malloc(sizeof(float) * vertical.getDim());
 	
+	// 对反馈图像的每个特征的每个位置累加求和
 	for(list<Image>::iterator ite = feedback.begin(); ite != feedback.end(); ite++)
 	{
 		Image tmp = *ite;
+
+		// 获取一幅反馈图像的各个分量的特征数组
 		float *hValues = tmp.getFeature().getColorFeature().getH().getFeature();
 		float *sValues = tmp.getFeature().getColorFeature().getS().getFeature();
 		float *vValues = tmp.getFeature().getColorFeature().getV().getFeature();
@@ -119,6 +129,7 @@ Image newQueryByFeedback(list<Image> feedback, Image query)
 		float *horivalues = tmp.getFeature().getShapeFeature().getHorizontal().getFeature();
 		float *vertiValues = tmp.getFeature().getShapeFeature().getVertical().getFeature();
 
+		// 对每个特征的各个位置累加求和
 		for(int i = 0; i < h.getDim(); i++)
 			hSum[i] += hValues[i];
 		for(int i = 0; i < s.getDim(); i++)
@@ -132,6 +143,7 @@ Image newQueryByFeedback(list<Image> feedback, Image query)
 		for(int i = 0; i < vertical.getDim(); i++)
 			vertiSum[i] += vertiValues[i];
 	}
+	// 对每个特征的各个位置进行平均获得二次查询图像的特征
 	for(int i = 0; i < h.getDim(); i++)
 		h.setFeature(i, (hSum[i] + queryColor.getH().getFeature(i)) / (h.getDim() + 1));
 	for(int i = 0; i < s.getDim(); i++)
@@ -145,6 +157,7 @@ Image newQueryByFeedback(list<Image> feedback, Image query)
 	for(int i = 0; i < vertical.getDim(); i++)
 		vertical.setFeature(i, (vertiSum[i] + queryShape.getVertical().getFeature(i)) / (vertical.getDim() + 1));
 
+	// 设置二次查询图像的特征
 	img.setFeature(features);
 	return img;
 }

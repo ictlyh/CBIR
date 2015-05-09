@@ -7,13 +7,17 @@ list<Image> Searcher::search(Image query, ImageLib imgLib, int k = 8)
 	list<Image> result;
 	list<Image> images = imgLib.getImageList();
 	Similarity similarity;
+
+	// 用于保存图像库中每个图像和查询图像的相似度
 	float *sim = (float*)malloc(sizeof(float) * images.size());
+	// 计算图像库中每个图像和查询图像的相似度
 	list<Image>::iterator ite = images.begin();
 	for(int i = 0; i < images.size() && ite != images.end(); i++, ite++)
 	{
 		sim[i] = similarity.similarity(query, *ite);
 	}
-	// sort the sim values and get top K
+	// 获取相似度最高的K个图像
+	// 由于K一般远远小于图像库中图像数目，故不需要进行全排序，只需要用选择排序选择最大的K个即可
 	bool *topK = (bool*)malloc(sizeof(bool) * images.size());
 	for(int i = 0; i < images.size(); i++)
 		topK[i] = false;
@@ -48,8 +52,8 @@ list<Image> Searcher::search(Image query, ImageLib imgLib, int k = 8)
 	return result;
 }
 
-list<Image> Searcher::reSearch(list<Image> feedback, ImageLib imageLib, int k = 8)
+list<Image> Searcher::reSearch(Image query, list<Image> feedback, ImageLib imageLib, int k = 8)
 {
-	Image query = newQueryByFeedback(feedback);
-	return search(query, imageLib);
+	Image newQuery = newQueryByFeedback(feedback, query);
+	return search(newQuery, imageLib);
 }

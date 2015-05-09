@@ -13,13 +13,13 @@ private:
 
 public:
 	Image(char* p);
-	char* getPath();			// 获取图像路径
-	Feature getFeature();		// 获取图像特征
-	void setFeature(Histogram* features);
-	void showImage();			// 显示图像
-	void calcColorFeature();	// 计算颜色特征
-	void calcShapeFeature();	// 计算形状特征
-	void calcFeature();			// 计算特征
+	char* getPath();						// 获取图像路径
+	Feature getFeature();					// 获取图像特征
+	void setFeature(Histogram* features);	// 设置特征
+	void showImage();						// 显示图像
+	void calcColorFeature();				// 计算颜色特征
+	void calcShapeFeature();				// 计算形状特征
+	void calcFeature();						// 计算特征
 };
 
 #endif

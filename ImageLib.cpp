@@ -141,17 +141,22 @@ void ImageLib::saveImageLib()
 
 void ImageLib::loadImageLib()
 {
+	imageList.clear();
 	ifstream ifs;
 	ifs.open(libFile, ios::in | ios::binary);
 	char line[3000];
 	while(!ifs.eof())
 	{
 		ifs.getline(line, 3000);
+		// 空行或者文件结束
 		if(ifs.failbit)
 			break;
-		Image img(line);
-		list<string> liststr;
 
+		list<string> liststr;
+		// 实例化一个图像
+		Image img(line);
+
+		// 读取H分量特征数组
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
 		Histogram h(liststr.size());
@@ -161,6 +166,7 @@ void ImageLib::loadImageLib()
 			liststr.pop_front();
 		}
 
+		// 读取S分量特征数组
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
 		Histogram s(liststr.size());
@@ -170,6 +176,7 @@ void ImageLib::loadImageLib()
 			liststr.pop_front();
 		}
 
+		// 读取V分量特征数组
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
 		Histogram v(liststr.size());
@@ -179,6 +186,7 @@ void ImageLib::loadImageLib()
 			liststr.pop_front();
 		}
 
+		// 读取灰度特征数组
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
 		Histogram gray(liststr.size());
@@ -188,6 +196,7 @@ void ImageLib::loadImageLib()
 			liststr.pop_front();
 		}
 
+		// 读取水平方向边缘点特征数组
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
 		Histogram horizontal(liststr.size());
@@ -197,6 +206,7 @@ void ImageLib::loadImageLib()
 			liststr.pop_front();
 		}
 
+		// 读取竖直方向边缘点特征数组
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
 		Histogram vertical(liststr.size());
@@ -206,9 +216,12 @@ void ImageLib::loadImageLib()
 			liststr.pop_front();
 		}
 
+		// 设置图像特征
 		Histogram features[] = { h, s, v, gray, horizontal, vertical };
 		img.setFeature(features);
 
+		// 加入图像库列表
 		imageList.push_back(img);
 	}
+	ifs.close();
 }

@@ -20,10 +20,10 @@ public:
 	Histogram getS();					// 获取S分量直方图
 	Histogram getV();					// 获取V分量直方图
 	Histogram getGray();				// 获取灰度直方图
-	void setH(Histogram histH);
-	void setS(Histogram histS);
-	void setV(Histogram histV);
-	void setGray(Histogram histGray);
+	void setH(Histogram histH);			// 设置H分量直方图
+	void setS(Histogram histS);			// 设置S分量直方图
+	void setV(Histogram histV);			// 设置V分量直方图
+	void setGray(Histogram histGray);	// 设置灰度直方图
 	void calcH(IplImage* hplane);		// 计算H分量直方图
 	void calcS(IplImage* splane);		// 计算S分量直方图
 	void calcV(IplImage* vplane);		// 计算V分量直方图

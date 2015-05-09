@@ -31,7 +31,9 @@ float Similarity::getShapeWeight()
 {
 	return shapeWeight;
 }
-
+/*
+ * 采用直方图相交计算直方图相似度，也可以采用卡方等方法
+ */
 float Similarity::similarity(Histogram a, Histogram b)
 {
 	float molecule = 0.0;
@@ -60,5 +62,6 @@ float Similarity::similarity(Image a, Image b)
 		+ similarity(aColor.getV(), bColor.getV());
 	shapeSim = similarity(aShape.getHorizontal(), bShape.getHorizontal())
 		+ similarity(aShape.getVertical(), bShape.getVertical());
+	// 根据颜色和形状权重计算图像相似度
 	return colorWeight * colorSim + shapeWeight * shapeSim;
 }
