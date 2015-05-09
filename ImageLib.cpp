@@ -59,15 +59,15 @@ void ImageLib::buildImageLib()
 void ImageLib::saveImageLib()
 {
 	/*
-	* Í¼ÏñÌØÕ÷´æ´¢ÎÄ¼ş¸ñÊ½
-	* Í¼Ïñ1Â·¾¶
-	* H ÌØÕ÷Êı×é
-	* S ÌØÕ÷Êı×é
-	* V ÌØÕ÷Êı×é
-	* »Ò¶ÈÌØÕ÷Êı×é
-	* Ë®Æ½ÌØÕ÷Êı×é
-	* ÊúÖ±ÌØÕ÷Êı×é
-	* Í¼Ïñ2Â·¾¶
+	* å›¾åƒç‰¹å¾å­˜å‚¨æ–‡ä»¶æ ¼å¼
+	* å›¾åƒ1è·¯å¾„
+	* H ç‰¹å¾æ•°ç»„
+	* S ç‰¹å¾æ•°ç»„
+	* V ç‰¹å¾æ•°ç»„
+	* ç°åº¦ç‰¹å¾æ•°ç»„
+	* æ°´å¹³ç‰¹å¾æ•°ç»„
+	* ç«–ç›´ç‰¹å¾æ•°ç»„
+	* å›¾åƒ2è·¯å¾„
 	*	.
 	*	.
 	*	.
@@ -77,7 +77,7 @@ void ImageLib::saveImageLib()
 	for(list<Image>::iterator ite = imageList.begin(); ite != imageList.end(); ite++)
 	{
 		Image tmp = *ite;
-		// ±£´æÍ¼ÏñÂ·¾¶
+		// ä¿å­˜å›¾åƒè·¯å¾„
 		fputs(tmp.getPath(), ofs);
 		fputs("\n", ofs);
 
@@ -86,7 +86,7 @@ void ImageLib::saveImageLib()
 		Histogram tmpHist;
 		float* tmpArray;
 
-		// ±£´æ H ÌØÕ÷Êı×é
+		// ä¿å­˜ H ç‰¹å¾æ•°ç»„
 		tmpHist = colorFeature.getH();
 		tmpArray = tmpHist.getFeature();
 		for(int i = 0; i < tmpHist.getDim(); i++)
@@ -95,7 +95,7 @@ void ImageLib::saveImageLib()
 		}
 		fputs("\n", ofs);
 
-		// ±£´æ S ÌØÕ÷Êı×é
+		// ä¿å­˜ S ç‰¹å¾æ•°ç»„
 		tmpHist = colorFeature.getS();
 		tmpArray = tmpHist.getFeature();
 		for(int i = 0; i < tmpHist.getDim(); i++)
@@ -104,7 +104,7 @@ void ImageLib::saveImageLib()
 		}
 		fputs("\n", ofs);
 
-		// ±£´æ V ÌØÕ÷Êı×é
+		// ä¿å­˜ V ç‰¹å¾æ•°ç»„
 		tmpHist = colorFeature.getV();
 		tmpArray = tmpHist.getFeature();
 		for(int i = 0; i < tmpHist.getDim(); i++)
@@ -113,7 +113,7 @@ void ImageLib::saveImageLib()
 		}
 		fputs("\n", ofs);
 
-		// ±£´æ»Ò¶ÈÌØÕ÷Êı×é
+		// ä¿å­˜ç°åº¦ç‰¹å¾æ•°ç»„
 		tmpHist = colorFeature.getGray();
 		tmpArray = tmpHist.getFeature();
 		for(int i = 0; i < tmpHist.getDim(); i++)
@@ -122,7 +122,7 @@ void ImageLib::saveImageLib()
 		}
 		fputs("\n", ofs);
 
-		// ±£´æË®Æ½ÌØÕ÷Êı×é
+		// ä¿å­˜æ°´å¹³ç‰¹å¾æ•°ç»„
 		tmpHist = shapeFeature.getHorizontal();
 		tmpArray = tmpHist.getFeature();
 		for(int i = 0; i < tmpHist.getDim(); i++)
@@ -131,7 +131,7 @@ void ImageLib::saveImageLib()
 		}
 		fputs("\n", ofs);
 
-		// ±£´æÊúÖ±ÌØÕ÷Êı×é
+		// ä¿å­˜ç«–ç›´ç‰¹å¾æ•°ç»„
 		tmpHist = shapeFeature.getVertical();
 		tmpArray = tmpHist.getFeature();
 		for(int i = 0; i < tmpHist.getDim(); i++)
@@ -152,15 +152,15 @@ void ImageLib::loadImageLib()
 	while(!ifs.eof())
 	{
 		ifs.getline(line, 3000);
-		// ¿ÕĞĞ»òÕßÎÄ¼ş½áÊø
+		// ç©ºè¡Œæˆ–è€…æ–‡ä»¶ç»“æŸ
 		if(ifs.failbit)
 			break;
 
 		list<string> liststr;
-		// ÊµÀı»¯Ò»¸öÍ¼Ïñ
+		// å®ä¾‹åŒ–ä¸€ä¸ªå›¾åƒ
 		Image img(line);
 
-		// ¶ÁÈ¡H·ÖÁ¿ÌØÕ÷Êı×é
+		// è¯»å–Håˆ†é‡ç‰¹å¾æ•°ç»„
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
 		Histogram h(liststr.size());
@@ -170,7 +170,7 @@ void ImageLib::loadImageLib()
 			liststr.pop_front();
 		}
 
-		// ¶ÁÈ¡S·ÖÁ¿ÌØÕ÷Êı×é
+		// è¯»å–Såˆ†é‡ç‰¹å¾æ•°ç»„
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
 		Histogram s(liststr.size());
@@ -180,7 +180,7 @@ void ImageLib::loadImageLib()
 			liststr.pop_front();
 		}
 
-		// ¶ÁÈ¡V·ÖÁ¿ÌØÕ÷Êı×é
+		// è¯»å–Våˆ†é‡ç‰¹å¾æ•°ç»„
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
 		Histogram v(liststr.size());
@@ -190,7 +190,7 @@ void ImageLib::loadImageLib()
 			liststr.pop_front();
 		}
 
-		// ¶ÁÈ¡»Ò¶ÈÌØÕ÷Êı×é
+		// è¯»å–ç°åº¦ç‰¹å¾æ•°ç»„
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
 		Histogram gray(liststr.size());
@@ -200,7 +200,7 @@ void ImageLib::loadImageLib()
 			liststr.pop_front();
 		}
 
-		// ¶ÁÈ¡Ë®Æ½·½Ïò±ßÔµµãÌØÕ÷Êı×é
+		// è¯»å–æ°´å¹³æ–¹å‘è¾¹ç¼˜ç‚¹ç‰¹å¾æ•°ç»„
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
 		Histogram horizontal(liststr.size());
@@ -210,7 +210,7 @@ void ImageLib::loadImageLib()
 			liststr.pop_front();
 		}
 
-		// ¶ÁÈ¡ÊúÖ±·½Ïò±ßÔµµãÌØÕ÷Êı×é
+		// è¯»å–ç«–ç›´æ–¹å‘è¾¹ç¼˜ç‚¹ç‰¹å¾æ•°ç»„
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
 		Histogram vertical(liststr.size());
@@ -220,11 +220,11 @@ void ImageLib::loadImageLib()
 			liststr.pop_front();
 		}
 
-		// ÉèÖÃÍ¼ÏñÌØÕ÷
+		// è®¾ç½®å›¾åƒç‰¹å¾
 		Histogram features[] = { h, s, v, gray, horizontal, vertical };
 		img.setFeature(features);
 
-		// ¼ÓÈëÍ¼Ïñ¿âÁĞ±í
+		// åŠ å…¥å›¾åƒåº“åˆ—è¡¨
 		imageList.push_back(img);
 	}
 	ifs.close();

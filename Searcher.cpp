@@ -8,20 +8,20 @@ list<Image> Searcher::search(Image query, ImageLib imgLib, int k = 8)
 	list<Image> images = imgLib.getImageList();
 	Similarity similarity;
 
-	// ÓÃÓÚ±£´æÍ¼Ïñ¿âÖĞÃ¿¸öÍ¼ÏñºÍ²éÑ¯Í¼ÏñµÄÏàËÆ¶È
+	// ç”¨äºä¿å­˜å›¾åƒåº“ä¸­æ¯ä¸ªå›¾åƒå’ŒæŸ¥è¯¢å›¾åƒçš„ç›¸ä¼¼åº¦
 	float *sim = (float*)malloc(sizeof(float) * images.size());
-	// ¼ÆËãÍ¼Ïñ¿âÖĞÃ¿¸öÍ¼ÏñºÍ²éÑ¯Í¼ÏñµÄÏàËÆ¶È
+	// è®¡ç®—å›¾åƒåº“ä¸­æ¯ä¸ªå›¾åƒå’ŒæŸ¥è¯¢å›¾åƒçš„ç›¸ä¼¼åº¦
 	list<Image>::iterator ite = images.begin();
 	for(int i = 0; i < images.size() && ite != images.end(); i++, ite++)
 	{
 		sim[i] = similarity.similarity(query, *ite);
 	}
-	// »ñÈ¡ÏàËÆ¶È×î¸ßµÄK¸öÍ¼Ïñ
-	// ÓÉÓÚKÒ»°ãÔ¶Ô¶Ğ¡ÓÚÍ¼Ïñ¿âÖĞÍ¼ÏñÊıÄ¿£¬¹Ê²»ĞèÒª½øĞĞÈ«ÅÅĞò£¬Ö»ĞèÒªÓÃÑ¡ÔñÅÅĞòÑ¡Ôñ×î´óµÄK¸ö¼´¿É
+	// è·å–ç›¸ä¼¼åº¦æœ€é«˜çš„Kä¸ªå›¾åƒ
+	// ç”±äºKä¸€èˆ¬è¿œè¿œå°äºå›¾åƒåº“ä¸­å›¾åƒæ•°ç›®ï¼Œæ•…ä¸éœ€è¦è¿›è¡Œå…¨æ’åºï¼Œåªéœ€è¦ç”¨é€‰æ‹©æ’åºé€‰æ‹©æœ€å¤§çš„Kä¸ªå³å¯
 	bool *topK = (bool*)malloc(sizeof(bool) * images.size());
 	for(int i = 0; i < images.size(); i++)
 		topK[i] = false;
-	// »ñÈ¡µÚ i Ïà¹ØµÄÍ¼Æ¬
+	// è·å–ç¬¬ i ç›¸å…³çš„å›¾ç‰‡
 	for(int i = 0; i < k; i++)
 	{
 		float max = 0.0;

@@ -3,21 +3,21 @@
 
 int main()
 {
-	// ´ÓÎÄ¼ş¼ĞÖĞ¹¹ÔìÍ¼Ïñ¿â
+	// ä»æ–‡ä»¶å¤¹ä¸­æ„é€ å›¾åƒåº“
 	ImageLib imageLib("Image Lib Directory here");
 	imageLib.buildImageLib();
-	// Èç¹ûÒÑÓĞÍ¼Ïñ¿âÌØÕ÷Êı¾İ£¬Ö±½Ó´ÓÌØÕ÷¿âÎÄ¼ş¶ÁÈë
+	// å¦‚æœå·²æœ‰å›¾åƒåº“ç‰¹å¾æ•°æ®ï¼Œç›´æ¥ä»ç‰¹å¾åº“æ–‡ä»¶è¯»å…¥
 	//imageLib.loadImageLib();
 
-	// ¹¹Ôì²éÑ¯Í¼Ïñ
+	// æ„é€ æŸ¥è¯¢å›¾åƒ
 	char queryImage[] = "path to query image";
 	Image query(queryImage);
 	query.calcFeature();
 
-	// ¹¹Ôì²éÑ¯Æ÷
+	// æ„é€ æŸ¥è¯¢å™¨
 	Searcher searcher;
 	list<Image> result = searcher.search(query, imageLib);
-	// ¸ù¾İÓÃ»§·´À¡½øĞĞ¶ş´Î²éÑ¯
+	// æ ¹æ®ç”¨æˆ·åé¦ˆè¿›è¡ŒäºŒæ¬¡æŸ¥è¯¢
 	list<Image> feedback;
 	list<Image> reResult = searcher.reSearch(feedback,imageLib);
 	return 0;

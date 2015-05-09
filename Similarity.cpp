@@ -36,7 +36,7 @@ float Similarity::getShapeWeight()
 	return shapeWeight;
 }
 /*
- * 采用直方图相交计算直方图相似度，也可以采用卡方等方法
+ * 閲囩敤鐩存柟鍥剧浉浜よ绠楃洿鏂瑰浘鐩镐技搴︼紝涔熷彲浠ラ噰鐢ㄥ崱鏂圭瓑鏂规硶
  */
 float Similarity::similarity(Histogram a, Histogram b)
 {
@@ -66,6 +66,6 @@ float Similarity::similarity(Image a, Image b)
 		+ similarity(aColor.getV(), bColor.getV());
 	shapeSim = similarity(aShape.getHorizontal(), bShape.getHorizontal())
 		+ similarity(aShape.getVertical(), bShape.getVertical());
-	// 根据颜色和形状权重计算图像相似度
+	// 鏍规嵁棰滆壊鍜屽舰鐘舵潈閲嶈绠楀浘鍍忕浉浼煎害
 	return colorWeight * colorSim + shapeWeight * shapeSim;
 }
