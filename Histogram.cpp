@@ -14,6 +14,10 @@ Histogram::Histogram(int d)
 		feature[i] = 0;
 }
 
+Histogram::~Histogram()
+{
+}
+
 void Histogram::setDim(int d)
 {
 	dim = d;

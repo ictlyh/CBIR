@@ -13,6 +13,7 @@ private:
 
 public:
 	Image(char* p);
+	~Image();
 	char* getPath();						// 获取图像路径
 	Feature getFeature();					// 获取图像特征
 	void setFeature(Histogram* features);	// 设置特征

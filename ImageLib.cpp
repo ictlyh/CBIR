@@ -13,6 +13,10 @@ ImageLib::ImageLib(char* dir)
 	libFile = "imagefeaturelib.txt";
 }
 
+ImageLib::~imageLib()
+{
+}
+
 char* ImageLib::getLibDir()
 {
 	return libDir;

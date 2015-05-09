@@ -5,6 +5,10 @@ Image::Image(char* p)
 	path = p;
 }
 
+Image::~Image()
+{
+}
+
 char* Image::getPath()
 {
 	return path;

@@ -14,6 +14,7 @@ private:
 	Histogram horizontal;	// 灰度图像边缘点水平方向直方图
 
 public:
+	~ShapeFeature();
 	Histogram getVertical();				// 获取竖直方向边缘点直方图
 	Histogram getHorizontal();				// 获取水平方向边缘点直方图
 	void setHorizontal(Histogram hori);		// 设置水平方向边缘点直方图

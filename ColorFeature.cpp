@@ -1,6 +1,10 @@
 #include "ColorFeature.h"
 #include "methods.h"
 
+ColorFeature::~ColorFeature()
+{
+}
+
 Histogram ColorFeature::getH()
 {
 	return h;

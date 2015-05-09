@@ -12,6 +12,10 @@ Similarity::Similarity(float color, float shape)
 	shapeWeight = shape;
 }
 
+Similarity::~Similarity()
+{
+}
+
 void Similarity::setColorWeight(float color)
 {
 	colorWeight = color;

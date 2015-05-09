@@ -14,6 +14,7 @@ private:
 public:
 	Histogram();
 	Histogram(int dim);
+	~Histogram();
 	
 	void setDim(int d);							// 设置直方图 bin 数目
 	void setFeature(int index, float value);	// 设置直方图某个 bin 高度

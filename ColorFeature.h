@@ -16,6 +16,7 @@ private:
 	Histogram gray;		// 灰度直方图
 
 public:
+	~ColorFeature();
 	Histogram getH();					// 获取H分量直方图
 	Histogram getS();					// 获取S分量直方图
 	Histogram getV();					// 获取V分量直方图

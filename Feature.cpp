@@ -1,5 +1,9 @@
 #include "Feature.h"
 
+Feature::~Feature()
+{
+}
+
 ColorFeature Feature::getColorFeature()
 {
 	return colorFeature;

@@ -1,6 +1,10 @@
 #include "ShapeFeature.h"
 #include "methods.h"
 
+ShapeFeature::~ShapeFeature()
+{
+}
+
 Histogram ShapeFeature::getHorizontal()
 {
 	return horizontal;

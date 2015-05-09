@@ -12,6 +12,7 @@ private:
 	ColorFeature colorFeature;		// 颜色特征
 	ShapeFeature shapeFeature;		// 形状特征
 public:
+	~Feature();
 	ColorFeature getColorFeature();				// 获取颜色特征
 	ShapeFeature getShapeFeature();				// 获取形状特征
 	void setColorFeature(Histogram * color);	// 设置颜色特征

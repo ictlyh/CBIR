@@ -14,6 +14,7 @@ private:
 public:
 	Similarity();										// 无参构造函数
 	Similarity(float color, float shape);				// 指定权重构造函数
+	~Similarity();
 	void setColorWeight(float color);					// 设置颜色特征权重
 	void setShapeWeight(float shape);					// 设置形状特征权重
 	float getColorWeight();								// 获取颜色特征权重
