@@ -13,6 +13,7 @@ using namespace std;
 void calcHist(IplImage *plane, Histogram &h, int dim);
 void dfsDirectory(char* dir, list<string> &listPath);
 void lineToFeature(char* line, list<string> &liststr);
-Image newQueryByFeedback(list<Image> feedback);
+Image newQueryByFeedback(list<Image> feedback, Image query);
+list<Image>::iterator getImage(list<Image> images, int index);
 
 #endif
