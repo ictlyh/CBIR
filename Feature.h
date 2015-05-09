@@ -14,6 +14,8 @@ private:
 public:
 	ColorFeature getColorFeature();	// 获取颜色特征
 	ShapeFeature getShapeFeature();	// 获取形状特征
+	void setColorFeature(Histogram * color);
+	void setShapeFeature(Histogram * shape);
 	void calcColorFeature(IplImage** planes);	// 计算颜色特征
 	void calcShapeFeature(IplImage* grayplane);	// 计算形状特征
 };

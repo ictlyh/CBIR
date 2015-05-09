@@ -27,6 +27,12 @@ void Histogram::setFeature(int index, float value)
 	feature[index] = value;
 }
 
+void Histogram::setFeature(float *values)
+{
+	for(int i = 0; i < dim; i++)
+		feature[i] = values[i];
+}
+
 int Histogram::getDim()
 {
 	return dim;

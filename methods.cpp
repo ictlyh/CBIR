@@ -73,3 +73,14 @@ void dfsDirectory(char* dir, list<string> &listPath)
 
     _findclose(Handle);
 }
+
+void lineToFeature(char* line, list<string> &liststr)
+{
+	liststr.clear();
+	stringstream ss(line);
+	string buf;
+	while(ss >> buf)
+	{
+		liststr.push_back(buf);
+	}
+}

@@ -1,6 +1,28 @@
 #include "ShapeFeature.h"
 #include "methods.h"
 
+Histogram ShapeFeature::getHorizontal()
+{
+	return horizontal;
+}
+
+Histogram ShapeFeature::getVertical()
+{
+	return vertical;
+}
+
+void ShapeFeature::setHorizontal(Histogram horiz)
+{
+	horizontal.setDim(horiz.getDim());
+	horizontal.setFeature(horiz.getFeature());
+}
+
+void ShapeFeature::setVertival(Histogram verti)
+{
+	vertical.setDim(verti.getDim());
+	vertical.setFeature(verti.getFeature());
+}
+
 void ShapeFeature::calcHorizontal(IplImage * gray)
 {
 	int width = gray->width;

@@ -2,6 +2,8 @@
 #define __IMAGELIB__H_
 
 #include <list>
+#include <cstdio>
+#include <fstream>
 #include "Image.h"
 
 using namespace std;

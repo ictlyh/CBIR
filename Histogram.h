@@ -17,6 +17,7 @@ public:
 	
 	void setDim(int d);							// 设置直方图 bin 数目
 	void setFeature(int index, float value);	// 设置直方图 bin 高度
+	void setFeature(float *values);
 	int getDim();								// 获取直方图 bin 数目
 	float getFeature(int index);				// 获取直方图某个 bin 高度
 	float* getFeature();						// 获取直方图所有 bin 高度

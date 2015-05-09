@@ -19,7 +19,7 @@ public:
 	float getColorWeight();
 	float getShapeWeight();
 	float similarity(Image a, Image b);					// 计算两个图像的相似度
-	float similarity(Histogram hisa, Histogram hisb);	// 计算两个直方图的相似度
+	float similarity(Histogram a, Histogram b);	// 计算两个直方图的相似度
 };
 
 #endif

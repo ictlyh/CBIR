@@ -15,6 +15,14 @@ Feature Image::getFeature()
 	return feature;
 }
 
+void Image::setFeature(Histogram* features)
+{
+	Histogram color[4] = { features[0], features[1], features[2], features[3] };
+	Histogram shape[2] = { features[4], features[5] };
+	feature.setColorFeature(color);
+	feature.setShapeFeature(shape);
+}
+
 void Image::showImage()
 {
 	IplImage * img = cvLoadImage(path);
