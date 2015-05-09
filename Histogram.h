@@ -1,6 +1,8 @@
 ﻿#ifndef __HISTGRAM__H_
 #define __HISTGRAM__H_
 
+#include <cstdlib>
+
 /*
  * 直方图类
  */
