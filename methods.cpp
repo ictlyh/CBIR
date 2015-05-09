@@ -30,3 +30,46 @@ void calcHist(IplImage *plane, Histogram &h, int dim)
 		h.setFeature(i, h.getFeature(i - 1) + h.getFeature(i));
 	}
 }
+
+void dfsDirectory(char* dir, list<string> &listPath)
+{
+    _finddata_t FileInfo;
+	char* strfind = (char*)malloc(sizeof(char) * (strlen(dir) + 3));
+	strcpy(strfind, dir);
+	strcat(strfind, "\\*");
+    long Handle = _findfirst(strfind, &FileInfo);
+    
+    if (Handle == -1L)
+    {
+        cerr << "Can not match the folder path: " << dir << endl;
+        exit(-1);
+    }
+    do{
+        //判断是否有子目录
+        if (FileInfo.attrib & _A_SUBDIR)    
+        {
+            // 判断是否为 . 和 ..
+            if( (strcmp(FileInfo.name,".") != 0 ) &&(strcmp(FileInfo.name,"..") != 0))   
+            {
+				char* subdir = (char*) malloc (sizeof(char) * (strlen(dir) + 2 + strlen(FileInfo.name)));
+				strcpy(subdir, dir);
+				strcat(subdir, "\\");
+				strcat(subdir, FileInfo.name);
+                dfsDirectory(subdir, listPath);
+				free(subdir);
+            }
+        }
+		// 文件
+        else
+        {
+			char* tmp = (char*) malloc (sizeof(char) * (strlen(dir) + 2 + strlen(FileInfo.name)));
+			strcpy(tmp, dir);
+			strcat(tmp, "\\");
+			strcat(tmp, FileInfo.name);
+			listPath.push_back(tmp);
+			free(tmp);
+        }
+    }while (_findnext(Handle, &FileInfo) == 0);
+
+    _findclose(Handle);
+}

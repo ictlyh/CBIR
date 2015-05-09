@@ -14,6 +14,10 @@ private:
 public:
 	Similarity();										// 无参构造函数
 	Similarity(float color, float shape);				// 指定权重构造函数
+	void setColorWeight(float color);
+	void setShapeWeight(float shape);
+	float getColorWeight();
+	float getShapeWeight();
 	float similarity(Image a, Image b);					// 计算两个图像的相似度
 	float similarity(Histogram hisa, Histogram hisb);	// 计算两个直方图的相似度
 };
