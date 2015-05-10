@@ -13,7 +13,7 @@ ImageLib::ImageLib(char* dir)
 	libFile = "imagefeaturelib.txt";
 }
 
-ImageLib::~imageLib()
+ImageLib::~ImageLib()
 {
 }
 
@@ -49,7 +49,9 @@ void ImageLib::buildImageLib()
 	dfsDirectory(libDir, files);
 	while(!files.empty())
 	{
-		Image img(files.front);
+		char tmp[200];
+		strcpy_s(tmp, files.front().c_str());
+		Image img(tmp);
 		files.pop_front();
 		img.calcFeature();
 		imageList.push_back(img);
@@ -163,60 +165,60 @@ void ImageLib::loadImageLib()
 		// 读取H分量特征数组
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
-		Histogram h(liststr.size());
+		Histogram h((int)liststr.size());
 		for(int i = 0; i < h.getDim(); i++)
 		{
-			h.setFeature(i, atof(liststr.front().c_str()));
+			h.setFeature(i, (float)atof(liststr.front().c_str()));
 			liststr.pop_front();
 		}
 
 		// 读取S分量特征数组
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
-		Histogram s(liststr.size());
+		Histogram s((int)liststr.size());
 		for(int i = 0; i < s.getDim(); i++)
 		{
-			s.setFeature(i, atof(liststr.front().c_str()));
+			s.setFeature(i, (float)atof(liststr.front().c_str()));
 			liststr.pop_front();
 		}
 
 		// 读取V分量特征数组
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
-		Histogram v(liststr.size());
+		Histogram v((int)liststr.size());
 		for(int i = 0; i < v.getDim(); i++)
 		{
-			v.setFeature(i, atof(liststr.front().c_str()));
+			v.setFeature(i, (float)atof(liststr.front().c_str()));
 			liststr.pop_front();
 		}
 
 		// 读取灰度特征数组
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
-		Histogram gray(liststr.size());
+		Histogram gray((int)liststr.size());
 		for(int i = 0; i < gray.getDim(); i++)
 		{
-			gray.setFeature(i, atof(liststr.front().c_str()));
+			gray.setFeature(i, (float)atof(liststr.front().c_str()));
 			liststr.pop_front();
 		}
 
 		// 读取水平方向边缘点特征数组
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
-		Histogram horizontal(liststr.size());
+		Histogram horizontal((int)liststr.size());
 		for(int i = 0; i < horizontal.getDim(); i++)
 		{
-			horizontal.setFeature(i, atof(liststr.front().c_str()));
+			horizontal.setFeature(i, (float)atof(liststr.front().c_str()));
 			liststr.pop_front();
 		}
 
 		// 读取竖直方向边缘点特征数组
 		ifs.getline(line, 3000);
 		lineToFeature(line, liststr);
-		Histogram vertical(liststr.size());
+		Histogram vertical((int)liststr.size());
 		for(int i = 0; i < vertical.getDim(); i++)
 		{
-			vertical.setFeature(i, atof(liststr.front().c_str()));
+			vertical.setFeature(i, (float)atof(liststr.front().c_str()));
 			liststr.pop_front();
 		}
 

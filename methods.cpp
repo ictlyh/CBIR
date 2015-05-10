@@ -37,7 +37,7 @@ void dfsDirectory(char* dir, list<string> &listPath)
 	char* strfind = (char*)malloc(sizeof(char) * (strlen(dir) + 3));
 	strcpy(strfind, dir);
 	strcat(strfind, "\\*");
-	long Handle = _findfirst(strfind, &FileInfo);
+	long Handle = (long)_findfirst(strfind, &FileInfo);
 
 	if (Handle == -1L)
 	{
@@ -95,7 +95,7 @@ Image newQueryByFeedback(list<Image> feedback, Image query)
 	Histogram h, s, v, gray, horizontal, vertical;
 	Histogram features[] = { h, s, v, gray, horizontal, vertical };
 
-	int size = feedback.size();
+	int size = (int)feedback.size();
 
 	// 设置二次查询图像各个特征的维数
 	h.setDim(query.getFeature().getColorFeature().getH().getDim());
@@ -168,4 +168,12 @@ list<Image>::iterator getImage(list<Image> images, int index)
 	for(int i = 0; i < index && ite != images.end(); i++, ite++)
 		;
 	return ite;
+}
+
+void showHistogram(Histogram h)
+{
+	cout << "Dimension: " << h.getDim() << endl;
+	for(int i = 0; i < h.getDim(); i++)
+		cout << h.getFeature(i) << " ";
+	cout << endl;
 }

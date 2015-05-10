@@ -2,7 +2,31 @@
 #include "Similarity.h"
 #include "methods.h"
 
-list<Image> Searcher::search(Image query, ImageLib imgLib, int k = 8)
+Searcher::Searcher()
+{
+	TopK = 8;
+}
+
+Searcher::Searcher(int k)
+{
+	TopK = k;
+}
+
+Searcher::~Searcher()
+{
+}
+
+void Searcher::setTopK(int k)
+{
+	TopK = k;
+}
+
+int Searcher::getTopK()
+{
+	return TopK;
+}
+
+list<Image> Searcher::search(Image query, ImageLib imgLib)
 {
 	list<Image> result;
 	list<Image> images = imgLib.getImageList();
@@ -22,7 +46,7 @@ list<Image> Searcher::search(Image query, ImageLib imgLib, int k = 8)
 	for(int i = 0; i < images.size(); i++)
 		topK[i] = false;
 	// 获取第 i 相关的图片
-	for(int i = 0; i < k; i++)
+	for(int i = 0; i < TopK; i++)
 	{
 		float max = 0.0;
 		int index = 0;
@@ -52,7 +76,7 @@ list<Image> Searcher::search(Image query, ImageLib imgLib, int k = 8)
 	return result;
 }
 
-list<Image> Searcher::reSearch(Image query, list<Image> feedback, ImageLib imageLib, int k = 8)
+list<Image> Searcher::reSearch(Image query, list<Image> feedback, ImageLib imageLib)
 {
 	Image newQuery = newQueryByFeedback(feedback, query);
 	return search(newQuery, imageLib);

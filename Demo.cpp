@@ -1,8 +1,10 @@
 #include "Searcher.h"
 #include "ImageLib.h"
+#include "methods.h"
 
 int main()
 {
+	/* Demo
 	// 从文件夹中构造图像库
 	ImageLib imageLib("Image Lib Directory here");
 	imageLib.buildImageLib();
@@ -20,5 +22,25 @@ int main()
 	// 根据用户反馈进行二次查询
 	list<Image> feedback;
 	list<Image> reResult = searcher.reSearch(feedback,imageLib);
+	return 0; */
+
+	// 测试 Image 类
+	/*Image img("E:\\images\\airplane.jpg");
+	img.showImage();
+	img.calcColorFeature();
+	showHistogram(img.getFeature().getColorFeature().getH());
+	showHistogram(img.getFeature().getColorFeature().getS());
+	showHistogram(img.getFeature().getColorFeature().getV());
+	showHistogram(img.getFeature().getColorFeature().getGray());
+	img.calcShapeFeature();
+	showHistogram(img.getFeature().getShapeFeature().getHorizontal());
+	showHistogram(img.getFeature().getShapeFeature().getVertical());*/
+
+	// 测试 ImageLib 类
+	ImageLib imgLib("E:\\images");
+	imgLib.buildImageLib();
+	imgLib.saveImageLib();
+	//imgLib.loadImageLib();
+	system("pause");
 	return 0;
 }
