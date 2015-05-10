@@ -28,8 +28,8 @@ public:
 	void setLibDir(char* dir);		// 设置图像库文件夹名称
 	void setLibFile(char* file);	// 设置图像特征库文件名称
 	void buildImageLib();			// 构建图像特征库
-	void loadImageLib();			// 从图像特征库文件加载图像特征库
-	void saveImageLib();			// 保存图像特征库到图像特征库文件
+	bool loadImageLib();			// 从图像特征库文件加载图像特征库
+	bool saveImageLib();			// 保存图像特征库到图像特征库文件
 };
 
 #endif

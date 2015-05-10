@@ -22,9 +22,9 @@ public:
 	void setPath(string p);					// 设置路径
 	void setFeature(Histogram features[]);	// 设置特征
 	void showImage();						// 显示图像
-	void calcColorFeature();				// 计算颜色特征
-	void calcShapeFeature();				// 计算形状特征
-	void calcFeature();						// 计算特征
+	bool calcColorFeature();				// 计算颜色特征
+	bool calcShapeFeature();				// 计算形状特征
+	bool calcFeature();						// 计算特征
 };
 
 #endif

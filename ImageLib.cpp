@@ -53,12 +53,12 @@ void ImageLib::buildImageLib()
 		strcpy_s(tmp, files.front().c_str());
 		Image *img = new Image(tmp);
 		files.pop_front();
-		img->calcFeature();
-		imageList.push_back(*img);
+		if(img->calcFeature())
+			imageList.push_back(*img);
 	}
 }
 
-void ImageLib::saveImageLib()
+bool ImageLib::saveImageLib()
 {
 	/*
 	* 图像特征存储文件格式
@@ -79,8 +79,7 @@ void ImageLib::saveImageLib()
 	if(!ofs)
 	{
 		fprintf(stderr, "Error:open file failed in ImageLib::saveImageLib.\n File path:%s", libFile);
-		system("pause");
-		exit(-1);
+		return false;
 	}
 	for(list<Image>::iterator ite = imageList.begin(); ite != imageList.end(); ite++)
 	{
@@ -149,9 +148,10 @@ void ImageLib::saveImageLib()
 		fputs("\n", ofs);
 	}
 	fclose(ofs);
+	return true;
 }
 
-void ImageLib::loadImageLib()
+bool ImageLib::loadImageLib()
 {
 	imageList.clear();
 	ifstream ifs;
@@ -159,8 +159,7 @@ void ImageLib::loadImageLib()
 	if(!ifs)
 	{
 		fprintf(stderr, "Error:open file failed in ImageLib::loadImageLib.\n File path:%s", libFile);
-		system("pause");
-		exit(-1);
+		return false;
 	}
 	char line[10000];
 	while(!ifs.eof())
@@ -242,4 +241,5 @@ void ImageLib::loadImageLib()
 		imageList.push_back(img);
 	}
 	ifs.close();
+	return true;
 }

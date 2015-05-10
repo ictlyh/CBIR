@@ -52,15 +52,14 @@ void Image::showImage()
 	cvDestroyWindow(path);
 }
 
-void Image::calcColorFeature()
+bool Image::calcColorFeature()
 {
 	// 载入图像
 	IplImage * src = cvLoadImage(path, CV_LOAD_IMAGE_ANYCOLOR);
 	if(!src)
 	{
 		fprintf(stderr, "Error:load image failed in Image::calcColorFeature.\n Image path:%s", path);
-		system("pause");
-		exit(-1);
+		return false;
 	}
 	
 	// 输入图像转换到HSV颜色空间
@@ -86,17 +85,17 @@ void Image::calcColorFeature()
 	cvReleaseImage(&v_plane);
 	cvReleaseImage(&gray);
 	//cvReleaseImage(planes);
+	return true;
 }
 
-void Image::calcShapeFeature()
+bool Image::calcShapeFeature()
 {
 	// 载入图像
 	IplImage * src = cvLoadImage(path, CV_LOAD_IMAGE_ANYCOLOR);
 	if(!src)
 	{
 		fprintf(stderr, "Error:load image failed in Image::calcShapeFeature.\n Image path:%s", path);
-		system("pause");
-		exit(-1);
+		return false;
 	}
 	// 灰度图像
 	IplImage * gray = cvCreateImage(cvGetSize(src), 8, 1);
@@ -106,10 +105,12 @@ void Image::calcShapeFeature()
 
 	cvReleaseImage(&src);
 	cvReleaseImage(&gray);
+	return true;
 }
 
-void Image::calcFeature()
+bool Image::calcFeature()
 {
-	calcColorFeature();
-	calcShapeFeature();
+	if(!calcColorFeature() || !calcShapeFeature())
+		return false;
+	return true;
 }
