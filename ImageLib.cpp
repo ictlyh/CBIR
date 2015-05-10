@@ -99,7 +99,7 @@ void ImageLib::saveImageLib()
 		tmpArray = tmpHist.getFeature();
 		for(int i = 0; i < tmpHist.getDim(); i++)
 		{
-			fprintf(ofs, "%4f ", tmpArray[i]);
+			fprintf(ofs, "%.4f ", tmpArray[i]);
 		}
 		fputs("\n", ofs);
 
@@ -108,7 +108,7 @@ void ImageLib::saveImageLib()
 		tmpArray = tmpHist.getFeature();
 		for(int i = 0; i < tmpHist.getDim(); i++)
 		{
-			fprintf(ofs, "%4f ", tmpArray[i]);
+			fprintf(ofs, "%.4f ", tmpArray[i]);
 		}
 		fputs("\n", ofs);
 
@@ -117,7 +117,7 @@ void ImageLib::saveImageLib()
 		tmpArray = tmpHist.getFeature();
 		for(int i = 0; i < tmpHist.getDim(); i++)
 		{
-			fprintf(ofs, "%4f ", tmpArray[i]);
+			fprintf(ofs, "%.4f ", tmpArray[i]);
 		}
 		fputs("\n", ofs);
 
@@ -126,7 +126,7 @@ void ImageLib::saveImageLib()
 		tmpArray = tmpHist.getFeature();
 		for(int i = 0; i < tmpHist.getDim(); i++)
 		{
-			fprintf(ofs, "%4f ", tmpArray[i]);
+			fprintf(ofs, "%.4f ", tmpArray[i]);
 		}
 		fputs("\n", ofs);
 
@@ -135,7 +135,7 @@ void ImageLib::saveImageLib()
 		tmpArray = tmpHist.getFeature();
 		for(int i = 0; i < tmpHist.getDim(); i++)
 		{
-			fprintf(ofs, "%4f ", tmpArray[i]);
+			fprintf(ofs, "%.4f ", tmpArray[i]);
 		}
 		fputs("\n", ofs);
 
@@ -144,8 +144,7 @@ void ImageLib::saveImageLib()
 		tmpArray = tmpHist.getFeature();
 		for(int i = 0; i < tmpHist.getDim(); i++)
 		{
-			// 保存小数点后6位数字
-			fprintf(ofs, "%.6f ", tmpArray[i]);
+			fprintf(ofs, "%.4f ", tmpArray[i]);
 		}
 		fputs("\n", ofs);
 	}

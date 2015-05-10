@@ -89,33 +89,54 @@ void lineToFeature(char* line, list<string> &liststr)
  * 根据反馈生成二次查询图像
  * 现在是将原查询和反馈图像进行平均，也可以通过调整颜色和形状权重获得新的查询图像
  */
-Image newQueryByFeedback(list<Image> feedback, Image query)
+Image newQueryByFeedback(list<string> feedbacks, Image query)
 {
+	list<Image> feedback;
+	for(list<string>::iterator ite = feedbacks.begin(); ite != feedbacks.end(); ite++)
+	{
+		Image tmp;
+		tmp.setPath(*ite);
+		tmp.calcFeature();
+		feedback.push_back(tmp);
+	}
 	// 实例化二次查询图像
-	Image img("");
-	Histogram h, s, v, gray, horizontal, vertical;
-	Histogram features[] = { h, s, v, gray, horizontal, vertical };
+	Image img;
+	//Histogram h, s, v, gray, horizontal, vertical;
+	Histogram features[6];
 
 	int size = (int)feedback.size();
 
 	// 设置二次查询图像各个特征的维数
-	h.setDim(query.getFeature().getColorFeature().getH().getDim());
-	s.setDim(query.getFeature().getColorFeature().getS().getDim());
-	v.setDim(query.getFeature().getColorFeature().getV().getDim());
-	gray.setDim(query.getFeature().getColorFeature().getGray().getDim());
-	horizontal.setDim(query.getFeature().getShapeFeature().getHorizontal().getDim());
-	vertical.setDim(query.getFeature().getShapeFeature().getVertical().getDim());
+	features[0].setDim(query.getFeature().getColorFeature().getH().getDim());
+	features[1].setDim(query.getFeature().getColorFeature().getS().getDim());
+	features[2].setDim(query.getFeature().getColorFeature().getV().getDim());
+	features[3].setDim(query.getFeature().getColorFeature().getGray().getDim());
+	features[4].setDim(query.getFeature().getShapeFeature().getHorizontal().getDim());
+	features[5].setDim(query.getFeature().getShapeFeature().getVertical().getDim());
 
 	ColorFeature queryColor = query.getFeature().getColorFeature();
 	ShapeFeature queryShape = query.getFeature().getShapeFeature();
 
-	// Initialize ??
-	float *hSum = (float*)malloc(sizeof(float) * h.getDim());
-	float *sSum = (float*)malloc(sizeof(float) * s.getDim());
-	float *vSum = (float*)malloc(sizeof(float) * v.getDim());
-	float *graySum = (float*)malloc(sizeof(float) * gray.getDim());
-	float *horiSum = (float*)malloc(sizeof(float) * horizontal.getDim());
-	float *vertiSum = (float*)malloc(sizeof(float) * vertical.getDim());
+	// 分配用于保存各个特征每个位置累加和的空间并初始化
+	float *hSum = (float*)malloc(sizeof(float) * features[0].getDim());
+	float *sSum = (float*)malloc(sizeof(float) * features[1].getDim());
+	float *vSum = (float*)malloc(sizeof(float) * features[2].getDim());
+	float *graySum = (float*)malloc(sizeof(float) * features[3].getDim());
+	float *horiSum = (float*)malloc(sizeof(float) * features[4].getDim());
+	float *vertiSum = (float*)malloc(sizeof(float) * features[5].getDim());
+	for(int i = 0; i < features[0].getDim(); i++)
+		hSum[i] = 0;
+	for(int i = 0; i < features[1].getDim(); i++)
+	{
+		sSum[i] = 0;
+		vSum[i] = 0;
+		graySum[i] = 0;
+	}		
+	for(int i = 0; i < features[4].getDim(); i++)
+	{
+		horiSum[i] = 0;
+		vertiSum[i] = 0;
+	}
 	
 	// 对反馈图像的每个特征的每个位置累加求和
 	for(list<Image>::iterator ite = feedback.begin(); ite != feedback.end(); ite++)
@@ -131,44 +152,44 @@ Image newQueryByFeedback(list<Image> feedback, Image query)
 		float *vertiValues = tmp.getFeature().getShapeFeature().getVertical().getFeature();
 
 		// 对每个特征的各个位置累加求和
-		for(int i = 0; i < h.getDim(); i++)
+		for(int i = 0; i < features[0].getDim(); i++)
 			hSum[i] += hValues[i];
-		for(int i = 0; i < s.getDim(); i++)
+		for(int i = 0; i < features[1].getDim(); i++)
 			sSum[i] += sValues[i];
-		for(int i = 0; i < v.getDim(); i++)
+		for(int i = 0; i < features[2].getDim(); i++)
 			vSum[i] += vValues[i];
-		for(int i = 0; i < gray.getDim(); i++)
+		for(int i = 0; i < features[3].getDim(); i++)
 			graySum[i] += grayValues[i];
-		for(int i = 0; i < horizontal.getDim(); i++)
+		for(int i = 0; i < features[4].getDim(); i++)
 			horiSum[i] += horivalues[i];
-		for(int i = 0; i < vertical.getDim(); i++)
+		for(int i = 0; i < features[5].getDim(); i++)
 			vertiSum[i] += vertiValues[i];
 	}
 	// 对每个特征的各个位置进行平均获得二次查询图像的特征
-	for(int i = 0; i < h.getDim(); i++)
-		h.setFeature(i, (hSum[i] + queryColor.getH().getFeature(i)) / (h.getDim() + 1));
-	for(int i = 0; i < s.getDim(); i++)
-		s.setFeature(i, (sSum[i] + queryColor.getS().getFeature(i)) / (s.getDim() + 1));
-	for(int i = 0; i < v.getDim(); i++)
-		v.setFeature(i, (vSum[i] + queryColor.getV().getFeature(i)) / (v.getDim() + 1));
-	for(int i = 0; i < gray.getDim(); i++)
-		gray.setFeature(i, (graySum[i] + queryColor.getGray().getFeature(i)) / (gray.getDim() + 1));
-	for(int i = 0; i < horizontal.getDim(); i++)
-		horizontal.setFeature(i, (horiSum[i] + queryShape.getHorizontal().getFeature(i)) / (horizontal.getDim() + 1));
-	for(int i = 0; i < vertical.getDim(); i++)
-		vertical.setFeature(i, (vertiSum[i] + queryShape.getVertical().getFeature(i)) / (vertical.getDim() + 1));
+	for(int i = 0; i < features[0].getDim(); i++)
+		features[0].setFeature(i, (hSum[i] + queryColor.getH().getFeature(i)) / (size + 1));
+	for(int i = 0; i < features[1].getDim(); i++)
+		features[1].setFeature(i, (sSum[i] + queryColor.getS().getFeature(i)) / (size + 1));
+	for(int i = 0; i < features[2].getDim(); i++)
+		features[2].setFeature(i, (vSum[i] + queryColor.getV().getFeature(i)) / (size + 1));
+	for(int i = 0; i < features[3].getDim(); i++)
+		features[3].setFeature(i, (graySum[i] + queryColor.getGray().getFeature(i)) / (size + 1));
+	for(int i = 0; i < features[4].getDim(); i++)
+		features[4].setFeature(i, (horiSum[i] + queryShape.getHorizontal().getFeature(i)) / (size + 1));
+	for(int i = 0; i < features[5].getDim(); i++)
+		features[5].setFeature(i, (vertiSum[i] + queryShape.getVertical().getFeature(i)) / (size + 1));
 
 	// 设置二次查询图像的特征
 	img.setFeature(features);
 	return img;
 }
 
-list<Image>::iterator getImage(list<Image> images, int index)
+string getImagePath(list<Image> images, int index)
 {
 	list<Image>::iterator ite = images.begin();
 	for(int i = 0; i < index && ite != images.end(); i++, ite++)
 		;
-	return ite;
+	return ite->getPath();
 }
 
 void showHistogram(Histogram h)

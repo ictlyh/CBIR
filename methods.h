@@ -21,8 +21,8 @@ using namespace std;
 void calcHist(IplImage *plane, Histogram &h, int dim);			// 根据图像计算直方图
 void dfsDirectory(char* dir, list<string> &listPath);			// 深度优先遍历文件夹
 void lineToFeature(char* line, list<string> &liststr);			// 将读取的行数据转化为一个特征数组
-Image newQueryByFeedback(list<Image> feedback, Image query);	// 根据反馈计算二次查询图像
-list<Image>::iterator getImage(list<Image> images, int index);	// 获取图像库列表某个位置的迭代器
+Image newQueryByFeedback(list<string> feedbacks, Image query);	// 根据反馈计算二次查询图像
+string getImagePath(list<Image> images, int index);				// 获取图像库列表某个图像的路径
 void showHistogram(Histogram h);								// 输出直方图
-
+void showResults(list<string> results);							// 输出检索结果
 #endif

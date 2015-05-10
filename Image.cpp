@@ -1,5 +1,9 @@
 #include "Image.h"
 
+Image::Image()
+{
+}
+
 Image::Image(char* p)
 {
 	strcpy(path, p);
@@ -19,10 +23,15 @@ Feature Image::getFeature()
 	return feature;
 }
 
-void Image::setFeature(Histogram* features)
+void Image::setPath(string p)
 {
-	Histogram color[4] = { features[0], features[1], features[2], features[3] };
-	Histogram shape[2] = { features[4], features[5] };
+	strcpy(path, p.c_str());
+}
+
+void Image::setFeature(Histogram features[])
+{
+	Histogram *color = features;
+	Histogram *shape = &features[4];
 	feature.setColorFeature(color);
 	feature.setShapeFeature(shape);
 }

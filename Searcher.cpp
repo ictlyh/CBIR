@@ -4,7 +4,7 @@
 
 Searcher::Searcher()
 {
-	TopK = 8;
+	TopK = 2;
 }
 
 Searcher::Searcher(int k)
@@ -26,10 +26,20 @@ int Searcher::getTopK()
 	return TopK;
 }
 
-list<Image> Searcher::search(Image query, ImageLib imgLib)
+list<string> Searcher::search(Image query, ImageLib imgLib)
 {
-	list<Image> result;
+	list<string> result;
 	list<Image> images = imgLib.getImageList();
+
+	// 若TopK的值大于图像库中图像的数目，直接返回所有图像
+	if(TopK > images.size())
+	{
+		list<Image>::iterator ite = images.begin();
+		for(; ite != images.end(); ite++)
+			result.push_back(ite->getPath());
+		return result;
+	}
+
 	Similarity similarity;
 
 	// 用于保存图像库中每个图像和查询图像的相似度
@@ -45,6 +55,7 @@ list<Image> Searcher::search(Image query, ImageLib imgLib)
 	bool *topK = (bool*)malloc(sizeof(bool) * images.size());
 	for(int i = 0; i < images.size(); i++)
 		topK[i] = false;
+	
 	// 获取第 i 相关的图片
 	for(int i = 0; i < TopK; i++)
 	{
@@ -59,8 +70,8 @@ list<Image> Searcher::search(Image query, ImageLib imgLib)
 			}
 		}
 		topK[index] = true;
-		list<Image>::iterator ite = getImage(images, index);
-		if(ite != images.end())
+		string str = getImagePath(images, index);
+		if(str.length() != 0)
 		{
 			/*Image tmp = *ite;
 			image img(tmp.getpath());
@@ -70,13 +81,13 @@ list<Image> Searcher::search(Image query, ImageLib imgLib)
 				tmpcolor.getgray(), tmpshape.gethorizontal(), tmpshape.getvertical() };
 			img.setfeature(features);
 			free(features);*/
-			result.push_back(*ite);
+			result.push_back(str);
 		}
 	}
 	return result;
 }
 
-list<Image> Searcher::reSearch(Image query, list<Image> feedback, ImageLib imageLib)
+list<string> Searcher::reSearch(Image query, list<string> feedback, ImageLib imageLib)
 {
 	Image newQuery = newQueryByFeedback(feedback, query);
 	return search(newQuery, imageLib);

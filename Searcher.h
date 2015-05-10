@@ -17,8 +17,8 @@ public:
 	~Searcher();
 	void setTopK(int k);
 	int getTopK();
-	list<Image> search(Image query, ImageLib imageLib);								// 图像检索
-	list<Image> reSearch(Image query, list<Image>  feedback, ImageLib imageLib);	// 二次图像检索
+	list<string> search(Image query, ImageLib imageLib);							// 图像检索
+	list<string> reSearch(Image query, list<string>  feedback, ImageLib imageLib);	// 二次图像检索
 };
 
 #endif

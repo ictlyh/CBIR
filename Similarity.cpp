@@ -67,5 +67,5 @@ float Similarity::similarity(Image a, Image b)
 	shapeSim = similarity(aShape.getHorizontal(), bShape.getHorizontal())
 		+ similarity(aShape.getVertical(), bShape.getVertical());
 	// 根据颜色和形状权重计算图像相似度
-	return colorWeight * colorSim + shapeWeight * shapeSim;
+	return colorWeight * colorSim / 3 + shapeWeight * shapeSim / 2;
 }
