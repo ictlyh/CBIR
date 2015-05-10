@@ -51,10 +51,10 @@ void ImageLib::buildImageLib()
 	{
 		char tmp[200];
 		strcpy_s(tmp, files.front().c_str());
-		Image img(tmp);
+		Image *img = new Image(tmp);
 		files.pop_front();
-		img.calcFeature();
-		imageList.push_back(img);
+		img->calcFeature();
+		imageList.push_back(*img);
 	}
 }
 
@@ -144,7 +144,8 @@ void ImageLib::saveImageLib()
 		tmpArray = tmpHist.getFeature();
 		for(int i = 0; i < tmpHist.getDim(); i++)
 		{
-			fprintf(ofs, "%4f ", tmpArray[i]);
+			// 保存小数点后6位数字
+			fprintf(ofs, "%.6f ", tmpArray[i]);
 		}
 		fputs("\n", ofs);
 	}
@@ -162,12 +163,12 @@ void ImageLib::loadImageLib()
 		system("pause");
 		exit(-1);
 	}
-	char line[3000];
+	char line[10000];
 	while(!ifs.eof())
 	{
 		ifs.getline(line, 3000);
-		// 空行或者文件结束
-		if(ifs.failbit)
+		// 空行
+		if(strlen(line) == 0)
 			break;
 
 		list<string> liststr;
@@ -215,7 +216,7 @@ void ImageLib::loadImageLib()
 		}
 
 		// 读取水平方向边缘点特征数组
-		ifs.getline(line, 3000);
+		ifs.getline(line, 10000);
 		lineToFeature(line, liststr);
 		Histogram horizontal((int)liststr.size());
 		for(int i = 0; i < horizontal.getDim(); i++)
@@ -225,7 +226,7 @@ void ImageLib::loadImageLib()
 		}
 
 		// 读取竖直方向边缘点特征数组
-		ifs.getline(line, 3000);
+		ifs.getline(line, 10000);
 		lineToFeature(line, liststr);
 		Histogram vertical((int)liststr.size());
 		for(int i = 0; i < vertical.getDim(); i++)

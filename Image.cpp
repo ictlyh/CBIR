@@ -2,7 +2,7 @@
 
 Image::Image(char* p)
 {
-	path = p;
+	strcpy(path, p);
 }
 
 Image::~Image()

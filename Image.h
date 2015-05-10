@@ -8,7 +8,7 @@
  */
 class Image {
 private:
-	char* path;			// 图像路径
+	char path[200];		// 图像路径
 	Feature feature;	// 图像特征
 
 public:

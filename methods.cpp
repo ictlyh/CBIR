@@ -58,10 +58,15 @@ void dfsDirectory(char* dir, list<string> &listPath)
 		}
 		else
 		{
-			strcpy(root, dir);
-			strcat(root, "\\");
-			strcat(root,FindFileData.cFileName);
-			listPath.push_back(root);
+			// 只处理 .jpg 文件
+			string tmp(FindFileData.cFileName);
+			if(strcmp(tmp.substr(tmp.length() - 4, 4).c_str(), ".jpg") == 0)
+			{
+				strcpy(root, dir);
+				strcat(root, "\\");
+				strcat(root,FindFileData.cFileName);
+				listPath.push_back(root);
+			}
 		}
 		if(!FindNextFile(hFind,&FindFileData))
 			break;
