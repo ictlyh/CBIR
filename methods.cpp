@@ -199,3 +199,10 @@ void showHistogram(Histogram h)
 		cout << h.getFeature(i) << " ";
 	cout << endl;
 }
+
+void showResults(list<string> results)
+{
+	cout << "¼ìË÷½á¹û:" << endl;
+	for(list<string>::iterator ite = results.begin(); ite != results.end(); ite++)
+		cout << *ite << endl;
+}
