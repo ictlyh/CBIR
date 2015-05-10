@@ -76,6 +76,12 @@ void ImageLib::saveImageLib()
 	*/
 	FILE* ofs;
 	ofs = fopen(libFile, "wb");
+	if(!ofs)
+	{
+		fprintf(stderr, "Error:open file failed in ImageLib::saveImageLib.\n File path:%s", libFile);
+		system("pause");
+		exit(-1);
+	}
 	for(list<Image>::iterator ite = imageList.begin(); ite != imageList.end(); ite++)
 	{
 		Image tmp = *ite;
@@ -150,6 +156,12 @@ void ImageLib::loadImageLib()
 	imageList.clear();
 	ifstream ifs;
 	ifs.open(libFile, ios::in | ios::binary);
+	if(!ifs)
+	{
+		fprintf(stderr, "Error:open file failed in ImageLib::loadImageLib.\n File path:%s", libFile);
+		system("pause");
+		exit(-1);
+	}
 	char line[3000];
 	while(!ifs.eof())
 	{

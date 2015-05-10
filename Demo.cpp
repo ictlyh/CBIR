@@ -25,7 +25,7 @@ int main()
 	return 0; */
 
 	// 测试 Image 类
-	/*Image img("E:\\images\\airplane.jpg");
+	Image img("E:\\images\\lion.jpg");
 	img.showImage();
 	img.calcColorFeature();
 	showHistogram(img.getFeature().getColorFeature().getH());
@@ -34,12 +34,12 @@ int main()
 	showHistogram(img.getFeature().getColorFeature().getGray());
 	img.calcShapeFeature();
 	showHistogram(img.getFeature().getShapeFeature().getHorizontal());
-	showHistogram(img.getFeature().getShapeFeature().getVertical());*/
+	showHistogram(img.getFeature().getShapeFeature().getVertical());
 
 	// 测试 ImageLib 类
-	ImageLib imgLib("E:\\images");
+	/*ImageLib imgLib("E:\\images");
 	imgLib.buildImageLib();
-	imgLib.saveImageLib();
+	imgLib.saveImageLib();*/
 	//imgLib.loadImageLib();
 	system("pause");
 	return 0;

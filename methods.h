@@ -6,6 +6,11 @@
 #include <list>
 #include <sstream>
 #include <io.h>
+#include <stdio.h>
+#include<windows.h>
+#include<iostream>
+#include<string>
+using namespace std;
 #include "Histogram.h"
 #include "Image.h"
 using namespace std;

@@ -29,11 +29,12 @@ void Image::setFeature(Histogram* features)
 
 void Image::showImage()
 {
-	IplImage * img = cvLoadImage(path);
+	IplImage * img = cvLoadImage(path, CV_LOAD_IMAGE_ANYCOLOR);
 	if(img == NULL)
 	{
-		fprintf(stderr, "Error:load image failed.\n Image path:%s", path);
-		return ;
+		fprintf(stderr, "Error:load image failed in Image::showImage.\n Image path:%s", path);
+		system("pause");
+		exit(-1);
 	}
 	cvNamedWindow(path, CV_WINDOW_AUTOSIZE );
 	cvShowImage(path, img);
@@ -45,11 +46,12 @@ void Image::showImage()
 void Image::calcColorFeature()
 {
 	// 载入图像
-	IplImage * src = cvLoadImage(path, CV_LOAD_IMAGE_UNCHANGED);
+	IplImage * src = cvLoadImage(path, CV_LOAD_IMAGE_ANYCOLOR);
 	if(!src)
 	{
-		printf("Could not load image file: %s\n", path);
-		exit(0);
+		fprintf(stderr, "Error:load image failed in Image::calcColorFeature.\n Image path:%s", path);
+		system("pause");
+		exit(-1);
 	}
 	
 	// 输入图像转换到HSV颜色空间
@@ -80,11 +82,12 @@ void Image::calcColorFeature()
 void Image::calcShapeFeature()
 {
 	// 载入图像
-	IplImage * src = cvLoadImage(path, CV_LOAD_IMAGE_UNCHANGED);
+	IplImage * src = cvLoadImage(path, CV_LOAD_IMAGE_ANYCOLOR);
 	if(!src)
 	{
-		printf("Could not load image file: %s\n", path);
-		exit(0);
+		fprintf(stderr, "Error:load image failed in Image::calcShapeFeature.\n Image path:%s", path);
+		system("pause");
+		exit(-1);
 	}
 	// 灰度图像
 	IplImage * gray = cvCreateImage(cvGetSize(src), 8, 1);

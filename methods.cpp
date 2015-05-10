@@ -33,44 +33,40 @@ void calcHist(IplImage *plane, Histogram &h, int dim)
 
 void dfsDirectory(char* dir, list<string> &listPath)
 {
-	_finddata_t FileInfo;
-	char* strfind = (char*)malloc(sizeof(char) * (strlen(dir) + 3));
-	strcpy(strfind, dir);
-	strcat(strfind, "\\*");
-	long Handle = (long)_findfirst(strfind, &FileInfo);
+	char szFile[MAX_PATH] = {0};
+	char szFind[MAX_PATH];
+	char root[MAX_PATH];
 
-	if (Handle == -1L)
+	WIN32_FIND_DATA FindFileData;
+	strcpy(szFind,dir);
+	strcat(szFind,"\\*.*");
+	HANDLE hFind = FindFirstFile(szFind,&FindFileData);
+
+	if(INVALID_HANDLE_VALUE == hFind)
+		return ;
+	while(TRUE)
 	{
-		cerr << "Can not match the folder path: " << dir << endl;
-		exit(-1);
-	}
-	do{
-		//判断是否有子目录
-		if (FileInfo.attrib & _A_SUBDIR)    
+		if(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 		{
-			// 判断是否为 . 和 ..
-			if( (strcmp(FileInfo.name,".") != 0 ) &&(strcmp(FileInfo.name,"..") != 0))   
+			if(FindFileData.cFileName[0]!='.')
 			{
-				char* subdir = (char*) malloc (sizeof(char) * (strlen(dir) + 2 + strlen(FileInfo.name)));
-				strcpy(subdir, dir);
-				strcat(subdir, "\\");
-				strcat(subdir, FileInfo.name);
-				dfsDirectory(subdir, listPath);
-				free(subdir);
+				strcpy(szFile,dir);
+				strcat(szFile,"\\");
+				strcat(szFile,FindFileData.cFileName);
+				dfsDirectory(szFile, listPath);
 			}
 		}
-		// 文件
 		else
 		{
-			char* tmp = (char*) malloc (sizeof(char) * (strlen(dir) + 2 + strlen(FileInfo.name)));
-			strcpy(tmp, dir);
-			strcat(tmp, "\\");
-			strcat(tmp, FileInfo.name);
-			listPath.push_back(tmp);
-			free(tmp);
+			strcpy(root, dir);
+			strcat(root, "\\");
+			strcat(root,FindFileData.cFileName);
+			listPath.push_back(root);
 		}
-	}while (_findnext(Handle, &FileInfo) == 0);
-	_findclose(Handle);
+		if(!FindNextFile(hFind,&FindFileData))
+			break;
+	}
+	FindClose(hFind);
 }
 
 void lineToFeature(char* line, list<string> &liststr)
