@@ -42,7 +42,7 @@ void ShapeFeature::calcHorizontal(IplImage * gray)
 		horizontal.setFeature(data[tmp] + 255, horizontal.getFeature(data[tmp] + 255) + 1);
 		for(int j = 1; j < width; j++)
 		{
-			int index = data[tmp + j] - data[tmp + j - 1] + 255;
+			int index = data[tmp + j - 1] - data[tmp + j] + 255;
 			horizontal.setFeature(index, horizontal.getFeature(index) + 1);
 		}
 	}
@@ -65,10 +65,10 @@ void ShapeFeature::calcVertical(IplImage * gray)
 	vertical.setDim(511);
 	// 统计每个值的像素点数目
 	for(int j = 0; j < width; j++)
-		vertical.setFeature(data[j] + 255, vertical.getFeature(data[j] + 255) + 1);
+		vertical.setFeature(data[j] + 255, 1);
 	for(int i = 1; i < height; i++)
 	{
-		for(int j = 1; j < width; j++)
+		for(int j = 0; j < width; j++)
 		{
 			int index = data[(i - 1) * step + j] - data[i * step + j] + 255;
 			vertical.setFeature(index, vertical.getFeature(index) + 1);
