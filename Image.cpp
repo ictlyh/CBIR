@@ -38,10 +38,10 @@ void Image::setFeature(Histogram features[])
 
 void Image::showImage()
 {
-	IplImage * img = cvLoadImage(path, CV_LOAD_IMAGE_ANYCOLOR);
+	IplImage * img = cvLoadImage(path, CV_LOAD_IMAGE_COLOR);
 	if(img == NULL)
 	{
-		fprintf(stderr, "Error:load image failed in Image::showImage.\n Image path:%s", path);
+		fprintf(stderr, "Error:load image failed in Image::showImage.\n Image path:%s\n", path);
 		system("pause");
 		exit(-1);
 	}
@@ -55,10 +55,10 @@ void Image::showImage()
 bool Image::calcColorFeature()
 {
 	// ‘ÿ»ÎÕºœÒ
-	IplImage * src = cvLoadImage(path, CV_LOAD_IMAGE_ANYCOLOR);
+	IplImage * src = cvLoadImage(path, CV_LOAD_IMAGE_COLOR);
 	if(!src)
 	{
-		fprintf(stderr, "Error:load image failed in Image::calcColorFeature.\n Image path:%s", path);
+		fprintf(stderr, "Error:load image failed in Image::calcColorFeature.\n Image path:%s\n", path);
 		return false;
 	}
 	
@@ -91,10 +91,10 @@ bool Image::calcColorFeature()
 bool Image::calcShapeFeature()
 {
 	// ‘ÿ»ÎÕºœÒ
-	IplImage * src = cvLoadImage(path, CV_LOAD_IMAGE_ANYCOLOR);
+	IplImage * src = cvLoadImage(path, CV_LOAD_IMAGE_COLOR);
 	if(!src)
 	{
-		fprintf(stderr, "Error:load image failed in Image::calcShapeFeature.\n Image path:%s", path);
+		fprintf(stderr, "Error:load image failed in Image::calcShapeFeature.\n Image path:%s\n", path);
 		return false;
 	}
 	// ª“∂»ÕºœÒ
