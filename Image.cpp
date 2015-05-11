@@ -6,7 +6,7 @@ Image::Image()
 
 Image::Image(char* p)
 {
-	strcpy(path, p);
+	strcpy_s(path, p);
 }
 
 Image::~Image()
@@ -25,7 +25,7 @@ Feature Image::getFeature()
 
 void Image::setPath(string p)
 {
-	strcpy(path, p.c_str());
+	strcpy_s(path, p.c_str());
 }
 
 void Image::setFeature(Histogram features[])
