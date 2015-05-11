@@ -1,24 +1,24 @@
-ï»¿#ifndef __FEATURE__H_
+#ifndef __FEATURE__H_
 #define __FEATURE__H_
 
 #include "ColorFeature.h"
 #include "ShapeFeature.h"
 
 /*
- * å›¾åƒç‰¹å¾ç±»
+ * Í¼ÏñÌØÕ÷Àà
  */
 class Feature {
 private:
-	ColorFeature colorFeature;		// é¢œè‰²ç‰¹å¾
-	ShapeFeature shapeFeature;		// å½¢çŠ¶ç‰¹å¾
+	ColorFeature colorFeature;		// ÑÕÉ«ÌØÕ÷
+	ShapeFeature shapeFeature;		// ĞÎ×´ÌØÕ÷
 public:
 	~Feature();
-	ColorFeature getColorFeature();				// è·å–é¢œè‰²ç‰¹å¾
-	ShapeFeature getShapeFeature();				// è·å–å½¢çŠ¶ç‰¹å¾
-	void setColorFeature(Histogram * color);	// è®¾ç½®é¢œè‰²ç‰¹å¾
-	void setShapeFeature(Histogram * shape);	// è®¾ç½®å½¢çŠ¶ç‰¹å¾
-	void calcColorFeature(IplImage** planes);	// è®¡ç®—é¢œè‰²ç‰¹å¾
-	void calcShapeFeature(IplImage* grayplane);	// è®¡ç®—å½¢çŠ¶ç‰¹å¾
+	ColorFeature getColorFeature();				// »ñÈ¡ÑÕÉ«ÌØÕ÷
+	ShapeFeature getShapeFeature();				// »ñÈ¡ĞÎ×´ÌØÕ÷
+	void setColorFeature(Histogram * color);	// ÉèÖÃÑÕÉ«ÌØÕ÷
+	void setShapeFeature(Histogram * shape);	// ÉèÖÃĞÎ×´ÌØÕ÷
+	void calcColorFeature(IplImage** planes);	// ¼ÆËãÑÕÉ«ÌØÕ÷
+	void calcShapeFeature(IplImage* grayplane);	// ¼ÆËãĞÎ×´ÌØÕ÷
 };
 
 #endif

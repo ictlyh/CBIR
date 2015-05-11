@@ -33,9 +33,9 @@ void ShapeFeature::calcHorizontal(IplImage * gray)
 	int height = gray->height;
 	int step = gray->widthStep;
 	uchar * data = (uchar * )gray->imageData;
-	// 像素灰度值差范围为[-255,255]
+	// ���ػҶ�ֵ�ΧΪ[-255,255]
 	horizontal.setDim(511);
-	// 统计每个值的像素点数目
+	// ͳ��ÿ��ֵ�����ص���Ŀ
 	for(int i = 0; i < height; i++)
 	{
 		int tmp = i * step;
@@ -46,11 +46,11 @@ void ShapeFeature::calcHorizontal(IplImage * gray)
 			horizontal.setFeature(index, horizontal.getFeature(index) + 1);
 		}
 	}
-	// 归一化
+	// ��һ��
 	int tmp = width * height;
 	for(int i = 0; i < horizontal.getDim(); i++)
 		horizontal.setFeature(i, horizontal.getFeature(i) / tmp);
-	// 转化为累加直方图
+	// ת��Ϊ�ۼ�ֱ��ͼ
 	for(int i = 1; i < horizontal.getDim(); i++)
 		horizontal.setFeature(i, horizontal.getFeature(i) + horizontal.getFeature(i - 1));
 }
@@ -61,9 +61,9 @@ void ShapeFeature::calcVertical(IplImage * gray)
 	int height = gray->height;
 	int step = gray->widthStep;
 	uchar * data = (uchar * )gray->imageData;
-	// 像素灰度值差范围为[-255,255]
+	// ���ػҶ�ֵ�ΧΪ[-255,255]
 	vertical.setDim(511);
-	// 统计每个值的像素点数目
+	// ͳ��ÿ��ֵ�����ص���Ŀ
 	for(int j = 0; j < width; j++)
 		vertical.setFeature(data[j] + 255, 1);
 	for(int i = 1; i < height; i++)
@@ -74,11 +74,11 @@ void ShapeFeature::calcVertical(IplImage * gray)
 			vertical.setFeature(index, vertical.getFeature(index) + 1);
 		}
 	}
-	// 归一化
+	// ��һ��
 	int tmp = width * height;
 	for(int i = 0; i < vertical.getDim(); i++)
 		vertical.setFeature(i, vertical.getFeature(i) / tmp);
-	// 转化为累加直方图
+	// ת��Ϊ�ۼ�ֱ��ͼ
 	for(int i = 1; i < vertical.getDim(); i++)
 		vertical.setFeature(i, vertical.getFeature(i) + vertical.getFeature(i - 1));
 }

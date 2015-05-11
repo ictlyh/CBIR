@@ -1,4 +1,4 @@
-ï»¿#ifndef __SEARCHER__H_
+#ifndef __SEARCHER__H_
 #define __SEARCHER__H_
 
 #include <list>
@@ -6,7 +6,7 @@
 #include "ImageLib.h"
 
 /*
- * æœç´¢ç±»
+ * ËÑË÷Àà
  */
 class Searcher {
 private:
@@ -17,8 +17,8 @@ public:
 	~Searcher();
 	void setTopK(int k);
 	int getTopK();
-	list<string> search(Image query, ImageLib imageLib);							// å›¾åƒæ£€ç´¢
-	list<string> reSearch(Image query, list<string>  feedback, ImageLib imageLib);	// äºŒæ¬¡å›¾åƒæ£€ç´¢
+	list<string> search(Image query, ImageLib imageLib);							// Í¼Ïñ¼ìË÷
+	list<string> reSearch(Image query, list<string>  feedback, ImageLib imageLib);	// ¶ş´ÎÍ¼Ïñ¼ìË÷
 };
 
 #endif

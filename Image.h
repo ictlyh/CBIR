@@ -1,4 +1,4 @@
-ï»¿#ifndef __IMAGE__H_
+#ifndef __IMAGE__H_
 #define __IMAGE__H_
 
 #include <string>
@@ -6,25 +6,25 @@
 using namespace std;
 
 /*
- * å›¾åƒ(æ–‡ä»¶)ç±»
+ * Í¼Ïñ(ÎÄ¼ş)Àà
  */
 class Image {
 private:
-	char path[200];		// å›¾åƒè·¯å¾„
-	Feature feature;	// å›¾åƒç‰¹å¾
+	char path[200];		// Í¼ÏñÂ·¾¶
+	Feature feature;	// Í¼ÏñÌØÕ÷
 
 public:
 	Image();
 	Image(char* p);
 	~Image();
-	char* getPath();						// è·å–å›¾åƒè·¯å¾„
-	Feature getFeature();					// è·å–å›¾åƒç‰¹å¾
-	void setPath(string p);					// è®¾ç½®è·¯å¾„
-	void setFeature(Histogram features[]);	// è®¾ç½®ç‰¹å¾
-	void showImage();						// æ˜¾ç¤ºå›¾åƒ
-	bool calcColorFeature();				// è®¡ç®—é¢œè‰²ç‰¹å¾
-	bool calcShapeFeature();				// è®¡ç®—å½¢çŠ¶ç‰¹å¾
-	bool calcFeature();						// è®¡ç®—ç‰¹å¾
+	char* getPath();						// »ñÈ¡Í¼ÏñÂ·¾¶
+	Feature getFeature();					// »ñÈ¡Í¼ÏñÌØÕ÷
+	void setPath(string p);					// ÉèÖÃÂ·¾¶
+	void setFeature(Histogram features[]);	// ÉèÖÃÌØÕ÷
+	void showImage();						// ÏÔÊ¾Í¼Ïñ
+	bool calcColorFeature();				// ¼ÆËãÑÕÉ«ÌØÕ÷
+	bool calcShapeFeature();				// ¼ÆËãĞÎ×´ÌØÕ÷
+	bool calcFeature();						// ¼ÆËãÌØÕ÷
 };
 
 #endif

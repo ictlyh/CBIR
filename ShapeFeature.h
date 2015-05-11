@@ -1,4 +1,4 @@
-ï»¿#ifndef __SHAPEFEATURE__H_
+#ifndef __SHAPEFEATURE__H_
 #define __SHAPEFEATURE__H_
 
 #include <opencv\cv.h>
@@ -6,21 +6,21 @@
 #include "Histogram.h"
 
 /*
- * å½¢çŠ¶ç‰¹å¾ç±»ï¼Œç”±ä¸¤ä¸ªè¾¹ç¼˜ç‚¹æ–¹å‘ç›´æ–¹å›¾æ„æˆ
+ * ĞÎ×´ÌØÕ÷Àà£¬ÓÉÁ½¸ö±ßÔµµã·½ÏòÖ±·½Í¼¹¹³É
  */
 class ShapeFeature {
 private:
-	Histogram vertical;		// ç°åº¦å›¾åƒè¾¹ç¼˜ç‚¹ç«–ç›´æ–¹å‘ç›´æ–¹å›¾
-	Histogram horizontal;	// ç°åº¦å›¾åƒè¾¹ç¼˜ç‚¹æ°´å¹³æ–¹å‘ç›´æ–¹å›¾
+	Histogram vertical;		// »Ò¶ÈÍ¼Ïñ±ßÔµµãÊúÖ±·½ÏòÖ±·½Í¼
+	Histogram horizontal;	// »Ò¶ÈÍ¼Ïñ±ßÔµµãË®Æ½·½ÏòÖ±·½Í¼
 
 public:
 	~ShapeFeature();
-	Histogram getVertical();				// è·å–ç«–ç›´æ–¹å‘è¾¹ç¼˜ç‚¹ç›´æ–¹å›¾
-	Histogram getHorizontal();				// è·å–æ°´å¹³æ–¹å‘è¾¹ç¼˜ç‚¹ç›´æ–¹å›¾
-	void setHorizontal(Histogram hori);		// è®¾ç½®æ°´å¹³æ–¹å‘è¾¹ç¼˜ç‚¹ç›´æ–¹å›¾
-	void setVertival(Histogram verti);		// è®¾ç½®ç«–ç›´æ–¹å‘è¾¹ç¼˜ç‚¹ç›´æ–¹å›¾
-	void calcVertical(IplImage* gray);		// æ ¹æ®ç°åº¦ç›´æ–¹å›¾è®¡ç®—ç«–ç›´æ–¹å‘è¾¹ç¼˜ç‚¹ç›´æ–¹å›¾
-	void calcHorizontal(IplImage* gray);	// æ ¹æ®ç°åº¦ç›´æ–¹å›¾è®¡ç®—æ°´å¹³æ–¹å‘è¾¹ç¼˜ç‚¹ç›´æ–¹å›¾
+	Histogram getVertical();				// »ñÈ¡ÊúÖ±·½Ïò±ßÔµµãÖ±·½Í¼
+	Histogram getHorizontal();				// »ñÈ¡Ë®Æ½·½Ïò±ßÔµµãÖ±·½Í¼
+	void setHorizontal(Histogram hori);		// ÉèÖÃË®Æ½·½Ïò±ßÔµµãÖ±·½Í¼
+	void setVertival(Histogram verti);		// ÉèÖÃÊúÖ±·½Ïò±ßÔµµãÖ±·½Í¼
+	void calcVertical(IplImage* gray);		// ¸ù¾İ»Ò¶ÈÖ±·½Í¼¼ÆËãÊúÖ±·½Ïò±ßÔµµãÖ±·½Í¼
+	void calcHorizontal(IplImage* gray);	// ¸ù¾İ»Ò¶ÈÖ±·½Í¼¼ÆËãË®Æ½·½Ïò±ßÔµµãÖ±·½Í¼
 };
 
 #endif

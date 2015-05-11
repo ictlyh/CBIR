@@ -54,7 +54,7 @@ void Image::showImage()
 
 bool Image::calcColorFeature()
 {
-	// è½½å…¥å›¾åƒ
+	// ÔØÈëÍ¼Ïñ
 	IplImage * src = cvLoadImage(path, CV_LOAD_IMAGE_ANYCOLOR);
 	if(!src)
 	{
@@ -62,7 +62,7 @@ bool Image::calcColorFeature()
 		return false;
 	}
 	
-	// è¾“å…¥å›¾åƒè½¬æ¢åˆ°HSVé¢œè‰²ç©ºé—´
+	// ÊäÈëÍ¼Ïñ×ª»»µ½HSVÑÕÉ«¿Õ¼ä
 	IplImage * hsv = cvCreateImage( cvGetSize(src), 8, 3 );
 	IplImage * h_plane = cvCreateImage( cvGetSize(src), 8, 1 );
 	IplImage * s_plane = cvCreateImage( cvGetSize(src), 8, 1 );
@@ -70,7 +70,7 @@ bool Image::calcColorFeature()
 	cvCvtColor( src, hsv, CV_BGR2HSV );
 	cvCvtPixToPlane( hsv, h_plane, s_plane, v_plane, 0 );
 
-	// ç°åº¦å›¾åƒ
+	// »Ò¶ÈÍ¼Ïñ
 	IplImage * gray = cvCreateImage(cvGetSize(src), 8, 1);
 	cvCvtColor(src, gray, CV_BGR2GRAY);
 
@@ -90,14 +90,14 @@ bool Image::calcColorFeature()
 
 bool Image::calcShapeFeature()
 {
-	// è½½å…¥å›¾åƒ
+	// ÔØÈëÍ¼Ïñ
 	IplImage * src = cvLoadImage(path, CV_LOAD_IMAGE_ANYCOLOR);
 	if(!src)
 	{
 		fprintf(stderr, "Error:load image failed in Image::calcShapeFeature.\n Image path:%s", path);
 		return false;
 	}
-	// ç°åº¦å›¾åƒ
+	// »Ò¶ÈÍ¼Ïñ
 	IplImage * gray = cvCreateImage(cvGetSize(src), 8, 1);
 	cvCvtColor(src, gray, CV_BGR2GRAY);
 

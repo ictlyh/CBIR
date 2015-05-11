@@ -31,7 +31,7 @@ list<string> Searcher::search(Image query, ImageLib imgLib)
 	list<string> result;
 	list<Image> images = imgLib.getImageList();
 
-	// è‹¥TopKçš„å€¼å¤§äºå›¾åƒåº“ä¸­å›¾åƒçš„æ•°ç›®ï¼Œç›´æ¥è¿”å›æ‰€æœ‰å›¾åƒ
+	// ÈôTopKµÄÖµ´óÓÚÍ¼Ïñ¿âÖĞÍ¼ÏñµÄÊıÄ¿£¬Ö±½Ó·µ»ØËùÓĞÍ¼Ïñ
 	if(TopK > images.size())
 	{
 		list<Image>::iterator ite = images.begin();
@@ -42,21 +42,21 @@ list<string> Searcher::search(Image query, ImageLib imgLib)
 
 	Similarity similarity;
 
-	// ç”¨äºä¿å­˜å›¾åƒåº“ä¸­æ¯ä¸ªå›¾åƒå’ŒæŸ¥è¯¢å›¾åƒçš„ç›¸ä¼¼åº¦
+	// ÓÃÓÚ±£´æÍ¼Ïñ¿âÖĞÃ¿¸öÍ¼ÏñºÍ²éÑ¯Í¼ÏñµÄÏàËÆ¶È
 	float *sim = (float*)malloc(sizeof(float) * images.size());
-	// è®¡ç®—å›¾åƒåº“ä¸­æ¯ä¸ªå›¾åƒå’ŒæŸ¥è¯¢å›¾åƒçš„ç›¸ä¼¼åº¦
+	// ¼ÆËãÍ¼Ïñ¿âÖĞÃ¿¸öÍ¼ÏñºÍ²éÑ¯Í¼ÏñµÄÏàËÆ¶È
 	list<Image>::iterator ite = images.begin();
 	for(int i = 0; i < images.size() && ite != images.end(); i++, ite++)
 	{
 		sim[i] = similarity.similarity(query, *ite);
 	}
-	// è·å–ç›¸ä¼¼åº¦æœ€é«˜çš„Kä¸ªå›¾åƒ
-	// ç”±äºKä¸€èˆ¬è¿œè¿œå°äºå›¾åƒåº“ä¸­å›¾åƒæ•°ç›®ï¼Œæ•…ä¸éœ€è¦è¿›è¡Œå…¨æ’åºï¼Œåªéœ€è¦ç”¨é€‰æ‹©æ’åºé€‰æ‹©æœ€å¤§çš„Kä¸ªå³å¯
+	// »ñÈ¡ÏàËÆ¶È×î¸ßµÄK¸öÍ¼Ïñ
+	// ÓÉÓÚKÒ»°ãÔ¶Ô¶Ğ¡ÓÚÍ¼Ïñ¿âÖĞÍ¼ÏñÊıÄ¿£¬¹Ê²»ĞèÒª½øĞĞÈ«ÅÅĞò£¬Ö»ĞèÒªÓÃÑ¡ÔñÅÅĞòÑ¡Ôñ×î´óµÄK¸ö¼´¿É
 	bool *topK = (bool*)malloc(sizeof(bool) * images.size());
 	for(int i = 0; i < images.size(); i++)
 		topK[i] = false;
 	
-	// è·å–ç¬¬ i ç›¸å…³çš„å›¾ç‰‡
+	// »ñÈ¡µÚ i Ïà¹ØµÄÍ¼Æ¬
 	for(int i = 0; i < TopK; i++)
 	{
 		float max = 0.0;

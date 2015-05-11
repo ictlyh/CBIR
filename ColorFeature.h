@@ -1,4 +1,4 @@
-ï»¿#ifndef __COLORFEATURE__H_
+#ifndef __COLORFEATURE__H_
 #define __COLORFEATURE__H_
 
 #include <opencv\cv.h>
@@ -6,30 +6,30 @@
 #include "Histogram.h"
 
 /*
- * (HSVç©ºé—´)é¢œè‰²ç‰¹å¾ç±»
+ * (HSV¿Õ¼ä)ÑÕÉ«ÌØÕ÷Àà
  */
 class ColorFeature {
 private:
-	Histogram h;		// Håˆ†é‡ç›´æ–¹å›¾
-	Histogram s;		// Såˆ†é‡ç›´æ–¹å›¾
-	Histogram v;		// Våˆ†é‡ç›´æ–¹å›¾
-	Histogram gray;		// ç°åº¦ç›´æ–¹å›¾
+	Histogram h;		// H·ÖÁ¿Ö±·½Í¼
+	Histogram s;		// S·ÖÁ¿Ö±·½Í¼
+	Histogram v;		// V·ÖÁ¿Ö±·½Í¼
+	Histogram gray;		// »Ò¶ÈÖ±·½Í¼
 
 public:
 	~ColorFeature();
-	Histogram getH();					// è·å–Håˆ†é‡ç›´æ–¹å›¾
-	Histogram getS();					// è·å–Såˆ†é‡ç›´æ–¹å›¾
-	Histogram getV();					// è·å–Våˆ†é‡ç›´æ–¹å›¾
-	Histogram getGray();				// è·å–ç°åº¦ç›´æ–¹å›¾
-	void setH(Histogram histH);			// è®¾ç½®Håˆ†é‡ç›´æ–¹å›¾
-	void setS(Histogram histS);			// è®¾ç½®Såˆ†é‡ç›´æ–¹å›¾
-	void setV(Histogram histV);			// è®¾ç½®Våˆ†é‡ç›´æ–¹å›¾
-	void setGray(Histogram histGray);	// è®¾ç½®ç°åº¦ç›´æ–¹å›¾
-	void calcH(IplImage* hplane);		// è®¡ç®—Håˆ†é‡ç›´æ–¹å›¾
-	void calcS(IplImage* splane);		// è®¡ç®—Såˆ†é‡ç›´æ–¹å›¾
-	void calcV(IplImage* vplane);		// è®¡ç®—Våˆ†é‡ç›´æ–¹å›¾
-	void calcGray(IplImage* grayplane);	// è®¡ç®—ç°åº¦ç›´æ–¹å›¾
-	void calcHSV(IplImage** planes);	// è®¡ç®—HSVç›´æ–¹å›¾
+	Histogram getH();					// »ñÈ¡H·ÖÁ¿Ö±·½Í¼
+	Histogram getS();					// »ñÈ¡S·ÖÁ¿Ö±·½Í¼
+	Histogram getV();					// »ñÈ¡V·ÖÁ¿Ö±·½Í¼
+	Histogram getGray();				// »ñÈ¡»Ò¶ÈÖ±·½Í¼
+	void setH(Histogram histH);			// ÉèÖÃH·ÖÁ¿Ö±·½Í¼
+	void setS(Histogram histS);			// ÉèÖÃS·ÖÁ¿Ö±·½Í¼
+	void setV(Histogram histV);			// ÉèÖÃV·ÖÁ¿Ö±·½Í¼
+	void setGray(Histogram histGray);	// ÉèÖÃ»Ò¶ÈÖ±·½Í¼
+	void calcH(IplImage* hplane);		// ¼ÆËãH·ÖÁ¿Ö±·½Í¼
+	void calcS(IplImage* splane);		// ¼ÆËãS·ÖÁ¿Ö±·½Í¼
+	void calcV(IplImage* vplane);		// ¼ÆËãV·ÖÁ¿Ö±·½Í¼
+	void calcGray(IplImage* grayplane);	// ¼ÆËã»Ò¶ÈÖ±·½Í¼
+	void calcHSV(IplImage** planes);	// ¼ÆËãHSVÖ±·½Í¼
 };
 
 #endif
