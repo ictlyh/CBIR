@@ -18,6 +18,8 @@ public:
   explicit CBIR(QWidget *parent = 0);
   ~CBIR();
 
+  void showResults();
+
 private slots:
   void on_pBLibDir_clicked();
 
@@ -43,6 +45,7 @@ private:
   Searcher searcher;
   Image queryImage;
   list<string> results;
+  list<string>::iterator iteBegin, iteEnd;
 };
 
 #endif // CBIR_H

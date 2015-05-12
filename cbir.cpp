@@ -1,17 +1,51 @@
 #include "cbir.h"
 #include "ui_cbir.h"
 #include <QFileDialog>
+#include <QMessageBox>
 
 CBIR::CBIR(QWidget *parent) :
   QMainWindow(parent),
   ui(new Ui::CBIR)
 {
-  ui->setupUi(this);
+    ui->setupUi(this);
 }
 
 CBIR::~CBIR()
 {
-  delete ui;
+    delete ui;
+}
+
+void CBIR::showResults()
+{
+    iteEnd = iteBegin;
+    QImage *img1 = new QImage();
+    QImage *img2 = new QImage();
+    QImage *img3 = new QImage();
+    QImage *img4 = new QImage();
+    if(iteEnd != results.end())
+      {
+        img1->load(*iteEnd);
+        ui->lbRes1->setPixmap(QPixmap::fromImage(*img1));
+        iteEnd++;
+      }
+    if(iteEnd != results.end())
+      {
+        img2->load(*iteEnd);
+        ui->lbRes2->setPixmap(QPixmap::fromImage(*img2));
+        iteEnd++;
+      }
+    if(iteEnd != results.end())
+      {
+        img3->load(*iteEnd);
+        ui->lbRes3->setPixmap(QPixmap::fromImage(*img3));
+        iteEnd++;
+      }
+    if(iteEnd != results.end())
+      {
+        img4->load(*iteEnd);
+        ui->lbRes4->setPixmap(QPixmap::fromImage(*img4));
+        iteEnd++;
+      }
 }
 
 void CBIR::on_pBLibDir_clicked()
@@ -19,6 +53,7 @@ void CBIR::on_pBLibDir_clicked()
     QString libDirectory = QFileDialog::getExistingDirectory(this, tr("选择图像库目录"),".");
     //QDebug << "The lib directory is :" << libDirectory << endl;
     imageLib.setLibDir(libDirectory);
+    ui->leLibDir->setText(libDirectory);
 }
 
 void CBIR::on_pBLibFile_clicked()
@@ -26,17 +61,18 @@ void CBIR::on_pBLibFile_clicked()
     QString libFile = QFileDialog::getOpenFileName(this, tr("选择图像库文件"), tr("Text (*.txt)"));
     //QDebug << "The lib file is : " << libFile << endl;
     imageLib.setLibFile(libFile);
+    ui->leLibFile->setText(libFile);
 }
 
 void CBIR::on_pBBuildLib_clicked()
 {
-    // 根据 pBLibDir 传过来的 libDirectory 构建图像特征库
+    // 构建图像特征库
     imageLib.buildImageLib();
 }
 
 void CBIR::on_pBLoadLib_clicked()
 {
-    // 根据 pBLibFile 传过来的 libFile 加载图像特征库文件
+    // 加载图像特征库文件
     imageLib.loadImageLib();
 }
 
@@ -58,54 +94,41 @@ void CBIR::on_pBSetQuery_clicked()
 
 void CBIR::on_pBSearch_clicked()
 {
-    // 检索并返回结果
+    // 检索并显示结果
     results = searcher.search(queryImage, imageLib);
     QDebug << "The result is :" << results << endl;
+    iteBegin = results.begin();
+    showResults();
 }
 
 void CBIR::on_pBReSearch_clicked()
 {
+  // 如何获取反馈图像??
     list<string> feedback;
     results = searcher.reSearch(queryImage, feedback, imageLib);
     QDebug << "The result is :" << results << endl;
+    iteBegin = results.begin();
+    showResults();
 }
 
 void CBIR::on_pBUp_clicked()
 {
-    QImage *img1 = new QImage();
-    QImage *img2 = new QImage();
-    QImage *img3 = new QImage();
-    QImage *img4 = new QImage();
-    list<string>::iterator ite = results.begin();
-    img1->load(*ite);
-    ite++;
-    img2->load(*ite);
-    ite++;
-    img3->load(*ite);
-    ite++;
-    img4->load(*ite);
-    ui->lbRes1->setPixmap(QPixmap::fromImage(*img1));
-    ui->lbRes2->setPixmap(QPixmap::fromImage(*img2));
-    ui->lbRes3->setPixmap(QPixmap::fromImage(*img3));
-    ui->lbRes4->setPixmap(QPixmap::fromImage(*img4));
+    if(iteBegin == results.begin())
+      {
+        QMessageBox::information(this, tr("已经是第一页"),tr("已经是第一页"));
+        return ;
+      }
+    iteBegin -= 4;
+    showResults();
 }
 
 void CBIR::on_pBNext_clicked()
 {
-  QImage *img1 = new QImage();
-  QImage *img2 = new QImage();
-  QImage *img3 = new QImage();
-  QImage *img4 = new QImage();
-  list<string>::iterator ite = results.rbegin();
-  img4->load(*ite);
-  ite++;
-  img3->load(*ite);
-  ite++;
-  img2->load(*ite);
-  ite++;
-  img1->load(*ite);
-  ui->lbRes1->setPixmap(QPixmap::fromImage(*img1));
-  ui->lbRes2->setPixmap(QPixmap::fromImage(*img2));
-  ui->lbRes3->setPixmap(QPixmap::fromImage(*img3));
-  ui->lbRes4->setPixmap(QPixmap::fromImage(*img4));
+  if(iteEnd == results.end())
+    {
+      QMessageBox::information(this, tr("已经是最后一页"), tr("已经是最后一页"));
+      return ;
+    }
+  iteBegin = iteEnd;
+  showResults();
 }
