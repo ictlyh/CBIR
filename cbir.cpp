@@ -59,13 +59,53 @@ void CBIR::on_pBSetQuery_clicked()
 void CBIR::on_pBSearch_clicked()
 {
     // 检索并返回结果
-    list<string> results = searcher.search(queryImage, imageLib);
+    results = searcher.search(queryImage, imageLib);
     QDebug << "The result is :" << results << endl;
 }
 
 void CBIR::on_pBReSearch_clicked()
 {
     list<string> feedback;
-    list<string> results = searcher.reSearch(queryImage, feedback, imageLib);
+    results = searcher.reSearch(queryImage, feedback, imageLib);
     QDebug << "The result is :" << results << endl;
+}
+
+void CBIR::on_pBUp_clicked()
+{
+    QImage *img1 = new QImage();
+    QImage *img2 = new QImage();
+    QImage *img3 = new QImage();
+    QImage *img4 = new QImage();
+    list<string>::iterator ite = results.begin();
+    img1->load(*ite);
+    ite++;
+    img2->load(*ite);
+    ite++;
+    img3->load(*ite);
+    ite++;
+    img4->load(*ite);
+    ui->lbRes1->setPixmap(QPixmap::fromImage(*img1));
+    ui->lbRes2->setPixmap(QPixmap::fromImage(*img2));
+    ui->lbRes3->setPixmap(QPixmap::fromImage(*img3));
+    ui->lbRes4->setPixmap(QPixmap::fromImage(*img4));
+}
+
+void CBIR::on_pBNext_clicked()
+{
+  QImage *img1 = new QImage();
+  QImage *img2 = new QImage();
+  QImage *img3 = new QImage();
+  QImage *img4 = new QImage();
+  list<string>::iterator ite = results.rbegin();
+  img4->load(*ite);
+  ite++;
+  img3->load(*ite);
+  ite++;
+  img2->load(*ite);
+  ite++;
+  img1->load(*ite);
+  ui->lbRes1->setPixmap(QPixmap::fromImage(*img1));
+  ui->lbRes2->setPixmap(QPixmap::fromImage(*img2));
+  ui->lbRes3->setPixmap(QPixmap::fromImage(*img3));
+  ui->lbRes4->setPixmap(QPixmap::fromImage(*img4));
 }

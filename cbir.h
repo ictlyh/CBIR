@@ -33,11 +33,16 @@ private slots:
 
   void on_pBReSearch_clicked();
 
+  void on_pBUp_clicked();
+
+  void on_pBNext_clicked();
+
 private:
   Ui::CBIR *ui;
   ImageLib imageLib;
   Searcher searcher;
   Image queryImage;
+  list<string> results;
 };
 
 #endif // CBIR_H

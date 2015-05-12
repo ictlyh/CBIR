@@ -11,9 +11,17 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = CBIR
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
-        cbir.cpp
+        cbir.cpp \
+    Similarity.cpp \
+    ShapeFeature.cpp \
+    Searcher.cpp \
+    methods.cpp \
+    ImageLib.cpp \
+    Image.cpp \
+    Histogram.cpp \
+    Feature.cpp \
+    ColorFeature.cpp
 
 HEADERS  += cbir.h \
     ColorFeature.h \
