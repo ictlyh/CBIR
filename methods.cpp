@@ -40,7 +40,7 @@ void dfsDirectory(char* dir, list<string> &listPath)
 	WIN32_FIND_DATA FindFileData;
 	strcpy(szFind,dir);
 	strcat(szFind,"\\*.*");
-	HANDLE hFind = FindFirstFile(szFind,&FindFileData);
+	HANDLE hFind = FindFirstFile((LPCWSTR)szFind,&FindFileData);
 
 	if(INVALID_HANDLE_VALUE == hFind)
 		return ;
@@ -52,19 +52,19 @@ void dfsDirectory(char* dir, list<string> &listPath)
 			{
 				strcpy(szFile,dir);
 				strcat(szFile,"\\");
-				strcat(szFile,FindFileData.cFileName);
+				strcat(szFile,(char *)FindFileData.cFileName);
 				dfsDirectory(szFile, listPath);
 			}
 		}
 		else
 		{
 			// 只处理 .jpg 文件
-			string tmp(FindFileData.cFileName);
+			string tmp((char*)FindFileData.cFileName);
 			if(strcmp(tmp.substr(tmp.length() - 4, 4).c_str(), ".jpg") == 0)
 			{
 				strcpy(root, dir);
 				strcat(root, "\\");
-				strcat(root,FindFileData.cFileName);
+				strcat(root,(char*)FindFileData.cFileName);
 				listPath.push_back(root);
 			}
 		}

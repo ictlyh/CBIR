@@ -20,6 +20,7 @@ private:
 public:
 	ImageLib(char* dir, char* file);
 	ImageLib(char* dir);
+	ImageLib();
 	~ImageLib();
 
 	char* getLibDir();				// 获取图像库文件夹名称

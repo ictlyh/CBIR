@@ -24,25 +24,29 @@ void CBIR::showResults()
     QImage *img4 = new QImage();
     if(iteEnd != results.end())
       {
-        img1->load(*iteEnd);
+        string tmp = *iteEnd;
+        img1->load(QString(tmp.c_str()));
         ui->lbRes1->setPixmap(QPixmap::fromImage(*img1));
         iteEnd++;
       }
     if(iteEnd != results.end())
       {
-        img2->load(*iteEnd);
+        string tmp = *iteEnd;
+        img2->load(QString(tmp.c_str()));
         ui->lbRes2->setPixmap(QPixmap::fromImage(*img2));
         iteEnd++;
       }
     if(iteEnd != results.end())
       {
-        img3->load(*iteEnd);
+        string tmp = *iteEnd;
+        img3->load(QString(tmp.c_str()));
         ui->lbRes3->setPixmap(QPixmap::fromImage(*img3));
         iteEnd++;
       }
     if(iteEnd != results.end())
       {
-        img4->load(*iteEnd);
+        string tmp = *iteEnd;
+        img4->load(QString(tmp.c_str()));
         ui->lbRes4->setPixmap(QPixmap::fromImage(*img4));
         iteEnd++;
       }
@@ -50,63 +54,63 @@ void CBIR::showResults()
 
 void CBIR::on_pBLibDir_clicked()
 {
-    QString libDirectory = QFileDialog::getExistingDirectory(this, tr("é€‰æ‹©å›¾åƒåº“ç›®å½•"),".");
+    QString libDirectory = QFileDialog::getExistingDirectory(this, tr("Ñ¡ÔñÍ¼Ïñ¿âÄ¿Â¼"),tr("."));
     //QDebug << "The lib directory is :" << libDirectory << endl;
-    imageLib.setLibDir(libDirectory);
+    imageLib.setLibDir((char*)libDirectory.toStdString().c_str());
     ui->leLibDir->setText(libDirectory);
 }
 
 void CBIR::on_pBLibFile_clicked()
 {
-    QString libFile = QFileDialog::getOpenFileName(this, tr("é€‰æ‹©å›¾åƒåº“æ–‡ä»¶"), tr("Text (*.txt)"));
+    QString libFile = QFileDialog::getOpenFileName(this, tr("Ñ¡ÔñÍ¼Ïñ¿âÎÄ¼ş"), tr("Text (*.txt)"));
     //QDebug << "The lib file is : " << libFile << endl;
-    imageLib.setLibFile(libFile);
+    imageLib.setLibFile((char*)libFile.toStdString().c_str());
     ui->leLibFile->setText(libFile);
 }
 
 void CBIR::on_pBBuildLib_clicked()
 {
-    // æ„å»ºå›¾åƒç‰¹å¾åº“
+    // ¹¹½¨Í¼ÏñÌØÕ÷¿â
     imageLib.buildImageLib();
 }
 
 void CBIR::on_pBLoadLib_clicked()
 {
-    // åŠ è½½å›¾åƒç‰¹å¾åº“æ–‡ä»¶
+    // ¼ÓÔØÍ¼ÏñÌØÕ÷¿âÎÄ¼ş
     imageLib.loadImageLib();
 }
 
 void CBIR::on_pBSetQuery_clicked()
 {
-    QString query = QFileDialog::getOpenFileName(this, tr("é€‰æ‹©æŸ¥è¯¢å›¾åƒ"), ".", tr("Images (*.png *.bmp *.jpg *.tif *.GIF )"));
-    // åœ¨ lbQueryImage ä¸­æ˜¾ç¤ºå›¾åƒï¼Œå¹¶æ„å»ºæŸ¥è¯¢å›¾åƒ
+    QString query = QFileDialog::getOpenFileName(this, tr("Ñ¡Ôñ²éÑ¯Í¼Ïñ"), ".", tr("Images (*.png *.bmp *.jpg *.tif *.GIF )"));
+    // ÔÚ lbQueryImage ÖĞÏÔÊ¾Í¼Ïñ£¬²¢¹¹½¨²éÑ¯Í¼Ïñ
     QImage * img = new QImage();
     if(!img->load(query))
       {
-        QMessageBox::information(this, tr("æ‰“å¼€å›¾åƒå¤±è´¥"), tr("æ‰“å¼€å›¾åƒå¤±è´¥!"));
+        QMessageBox::information(this, tr("´ò¿ªÍ¼ÏñÊ§°Ü"), tr("´ò¿ªÍ¼ÏñÊ§°Ü!"));
         delete img;
         return;
       }
     ui->lbQueryImage->setPixmap(QPixmap::fromImage(*img));
-    queryImage.setPath(query);
+    queryImage.setPath(query.toStdString());
     queryImage.calcFeature();
 }
 
 void CBIR::on_pBSearch_clicked()
 {
-    // æ£€ç´¢å¹¶æ˜¾ç¤ºç»“æœ
+    // ¼ìË÷²¢ÏÔÊ¾½á¹û
     results = searcher.search(queryImage, imageLib);
-    QDebug << "The result is :" << results << endl;
+    //QDebug << "The result is :" << results << endl;
     iteBegin = results.begin();
     showResults();
 }
 
 void CBIR::on_pBReSearch_clicked()
 {
-  // å¦‚ä½•è·å–åé¦ˆå›¾åƒ??
+  // ÈçºÎ»ñÈ¡·´À¡Í¼Ïñ??
     list<string> feedback;
     results = searcher.reSearch(queryImage, feedback, imageLib);
-    QDebug << "The result is :" << results << endl;
+    //QDebug << "The result is :" << results << endl;
     iteBegin = results.begin();
     showResults();
 }
@@ -115,10 +119,13 @@ void CBIR::on_pBUp_clicked()
 {
     if(iteBegin == results.begin())
       {
-        QMessageBox::information(this, tr("å·²ç»æ˜¯ç¬¬ä¸€é¡µ"),tr("å·²ç»æ˜¯ç¬¬ä¸€é¡µ"));
+        QMessageBox::information(this, tr("ÒÑ¾­ÊÇµÚÒ»Ò³"),tr("ÒÑ¾­ÊÇµÚÒ»Ò³"));
         return ;
       }
-    iteBegin -= 4;
+    iteBegin = iteBegin--;
+    iteBegin = iteBegin--;
+    iteBegin = iteBegin--;
+    iteBegin = iteBegin--;
     showResults();
 }
 
@@ -126,7 +133,7 @@ void CBIR::on_pBNext_clicked()
 {
   if(iteEnd == results.end())
     {
-      QMessageBox::information(this, tr("å·²ç»æ˜¯æœ€åä¸€é¡µ"), tr("å·²ç»æ˜¯æœ€åä¸€é¡µ"));
+      QMessageBox::information(this, tr("ÒÑ¾­ÊÇ×îºóÒ»Ò³"), tr("ÒÑ¾­ÊÇ×îºóÒ»Ò³"));
       return ;
     }
   iteBegin = iteEnd;

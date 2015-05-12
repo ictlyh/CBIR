@@ -1,10 +1,9 @@
 #include "ImageLib.h"
 #include "methods.h"
 
-ImageLib::ImageLib(char* dir, char* file)
+ImageLib::ImageLib()
 {
-	libDir = dir;
-	libFile = file;
+	libFile = "imagefeaturelib.txt";
 }
 
 ImageLib::ImageLib(char* dir)
