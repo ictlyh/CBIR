@@ -36,10 +36,10 @@ HEADERS  += cbir.h \
 
 FORMS    += cbir.ui
 
-INCLUDEPATH += "D:/Program Files/OpenCV/build/include"
+INCLUDEPATH += D:/OpenCV/build/include
 
-x64:CONFIG(debug, debug|release): {
-LIBS += -LD:/Program Files/OpenCV/build/x64/vc11/lib \
+win32:CONFIG(debug, debug|release): {
+LIBS += -LD:/OpenCV/build/x64/vc11/lib \
 -lopencv_core249d \
 -lopencv_imgproc249d \
 -lopencv_highgui249d \
@@ -51,8 +51,8 @@ LIBS += -LD:/Program Files/OpenCV/build/x64/vc11/lib \
 -lopencv_contrib249d \
 -lopencv_legacy249d \
 -lopencv_flann249d
-}else:x64:CONFIG(release, debug|release): {
-LIBS += -LD:/Program Files/OpenCV/build/x64/vc11/lib \
+}else:win32:CONFIG(release, debug|release): {
+LIBS += -LD:/OpenCV/build/x64/vc11/lib \
 -lopencv_core249 \
 -lopencv_imgproc249 \
 -lopencv_highgui249 \
