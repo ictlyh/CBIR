@@ -3,13 +3,13 @@
 
 ImageLib::ImageLib()
 {
-	libFile = "imagefeaturelib.txt";
+	strcpy_s(libFile, "imagefeaturelib.txt");
 }
 
 ImageLib::ImageLib(char* dir)
 {
-	libDir = dir;
-	libFile = "imagefeaturelib.txt";
+	strcpy_s(libDir, dir);
+	strcpy_s(libFile, "imagefeaturelib.txt");
 }
 
 ImageLib::~ImageLib()
@@ -33,12 +33,12 @@ list<Image> ImageLib::getImageList()
 
 void ImageLib::setLibDir(char* dir)
 {
-	libDir = dir;
+	strcpy_s(libDir, dir);
 }
 
 void ImageLib::setLibFile(char* file)
 {
-	libFile = file;
+	strcpy_s(libFile, file);
 }
 
 void ImageLib::buildImageLib()
