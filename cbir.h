@@ -19,8 +19,6 @@ public:
   ~CBIR();
 
   void showResults();
-  string convertToString(QString src);
-  QString convertToQString(string);
 
 private slots:
   void on_pBLibDir_clicked();
@@ -47,7 +45,7 @@ private:
   Searcher searcher;
   Image queryImage;
   list<string> results;
-  list<string>::iterator iteBegin, iteEnd;
+  int begin, end;
 };
 
 #endif // CBIR_H

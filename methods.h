@@ -10,7 +10,9 @@
 #include<windows.h>
 #include<iostream>
 #include<string>
-using namespace std;
+#include <QMainWindow>
+#include <QDir>
+#include <QDirIterator>
 #include "Histogram.h"
 #include "Image.h"
 using namespace std;
@@ -25,4 +27,7 @@ Image newQueryByFeedback(list<string> feedbacks, Image query);	// 根据反馈计算二
 string getImagePath(list<Image> images, int index);				// 获取图像库列表某个图像的路径
 void showHistogram(Histogram h);								// 输出直方图
 void showResults(list<string> results);							// 输出检索结果
+string convertToString(QString src);
+QString convertToQString(string);
+
 #endif

@@ -2,6 +2,7 @@
 #include "ui_cbir.h"
 #include <QFileDialog>
 #include <QMessageBox>
+#include "methods.h"
 
 CBIR::CBIR(QWidget *parent) :
   QMainWindow(parent),
@@ -11,8 +12,8 @@ CBIR::CBIR(QWidget *parent) :
     queryImage.setPath("");
     imageLib.setLibDir("");
     results.clear();
-    iteBegin = results.begin();
-    iteEnd = results.begin();
+    begin = 0;
+    end = 0;
 }
 
 CBIR::~CBIR()
@@ -20,60 +21,47 @@ CBIR::~CBIR()
     delete ui;
 }
 
-string CBIR::convertToString(QString src)
-{
-    QString tmp(src);
-    if(tmp.contains("/"))
-      tmp.replace("/", "\\", Qt::CaseInsensitive);
-    return tmp.toStdString();
-}
-
-QString CBIR::convertToQString(string src)
-{
-    QString tmp(QString::fromLocal8Bit(src.c_str()));
-    if(tmp.contains("\\"))
-      tmp.replace("\\", "/", Qt::CaseInsensitive);
-    return tmp;
-}
-
 void CBIR::showResults()
 {
-    iteEnd = iteBegin;
+    list<string>::iterator ite = results.begin();
+    for(int i = 0; i < begin; i++,ite++)
+      ;
+    end = begin;
     QImage *img1 = new QImage();
     QImage *img2 = new QImage();
     QImage *img3 = new QImage();
     QImage *img4 = new QImage();
-    if(iteEnd != results.end())
+    if(ite != results.end())
       {
-        string tmp = *iteEnd;
-        img1->load(convertToQString(tmp));
+        img1->load(convertToQString(*ite));
         *img1 = img1->scaled(ui->lbRes1->size(), Qt::KeepAspectRatio);
         ui->lbRes1->setPixmap(QPixmap::fromImage(*img1));
-        iteEnd++;
+        ite++;
+        end++;
       }
-    if(iteEnd != results.end())
+    if(ite != results.end())
       {
-        string tmp = *iteEnd;
-        img2->load(convertToQString(tmp));
+        img2->load(convertToQString(*ite));
         *img2 = img2->scaled(ui->lbRes2->size(), Qt::KeepAspectRatio);
         ui->lbRes2->setPixmap(QPixmap::fromImage(*img2));
-        iteEnd++;
+        ite++;
+        end++;
       }
-    if(iteEnd != results.end())
+    if(ite != results.end())
       {
-        string tmp = *iteEnd;
-        img3->load(convertToQString(tmp));
+        img3->load(convertToQString(*ite));
         *img3 = img3->scaled(ui->lbRes3->size(), Qt::KeepAspectRatio);
         ui->lbRes3->setPixmap(QPixmap::fromImage(*img3));
-        iteEnd++;
+        ite++;
+        end++;
       }
-    if(iteEnd != results.end())
+    if(ite != results.end())
       {
-        string tmp = *iteEnd;
-        img4->load(convertToQString(tmp));
+        img4->load(convertToQString(*ite));
         *img4 = img4->scaled(ui->lbRes4->size(), Qt::KeepAspectRatio);
         ui->lbRes4->setPixmap(QPixmap::fromImage(*img4));
-        iteEnd++;
+        ite++;
+        end++;
       }
 }
 
@@ -91,7 +79,7 @@ void CBIR::on_pBLibDir_clicked()
 
 void CBIR::on_pBLibFile_clicked()
 {
-    QString libFile = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("选择图像库文件"), QString::fromLocal8Bit("Text (*.txt)"));
+    QString libFile = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("选择图像库文件"));
     // Press Cancle
     if(libFile == NULL)
       return ;
@@ -113,7 +101,7 @@ void CBIR::on_pBBuildLib_clicked()
     QMessageBox::information(this, QString::fromLocal8Bit("构建特征库完成"), QString::fromLocal8Bit("构建特征库完成"));
     // 保存图像特征库
     imageLib.saveImageLib();
-    QMessageBox::information(this, QString::fromLocal8Bit("图像库规模"), QString("%1").arg(imageLib.getImageList().size()));
+    //QMessageBox::information(this, QString::fromLocal8Bit("图像库规模"), QString("%1").arg(imageLib.getImageList().size()));
 }
 
 void CBIR::on_pBLoadLib_clicked()
@@ -158,42 +146,45 @@ void CBIR::on_pBSearch_clicked()
        return ;
     }
     // 检索并显示结果
+    searcher.setTopK(8);
     results = searcher.search(queryImage, imageLib);
-    QMessageBox::information(this, QString::fromLocal8Bit("检索结果数目"), QString("%1").arg(results.size()));
-    iteBegin = results.begin();
+    //QMessageBox::information(this, QString::fromLocal8Bit("检索结果数目"), QString("%1").arg(results.size()));
+    begin = 0;
     showResults();
 }
 
 void CBIR::on_pBReSearch_clicked()
 {
+    if(strlen(queryImage.getPath()) == 0)
+    {
+       QMessageBox::information(this, QString::fromLocal8Bit("请选择检索图像"), QString::fromLocal8Bit("请选择检索图像"));
+       return ;
+    }
     // 如何获取反馈图像??
     list<string> feedback;
     results = searcher.reSearch(queryImage, feedback, imageLib);
-    iteBegin = results.begin();
+    begin = 0;
     showResults();
 }
 
 void CBIR::on_pBUp_clicked()
 {
-    if(iteBegin == results.begin())
+    if(begin == 0)
       {
         QMessageBox::information(this, QString::fromLocal8Bit("已经是第一页"), QString::fromLocal8Bit("已经是第一页"));
         return ;
       }
-    iteBegin = iteBegin--;
-    iteBegin = iteBegin--;
-    iteBegin = iteBegin--;
-    iteBegin = iteBegin--;
+    begin = begin - 4;
     showResults();
 }
 
 void CBIR::on_pBNext_clicked()
 {
-  if(iteEnd == results.end())
+  if(end == results.size())
     {
       QMessageBox::information(this, QString::fromLocal8Bit("已经是最后一页"), QString::fromLocal8Bit("已经是最后一页"));
       return ;
     }
-  iteBegin = iteEnd;
+  begin = end;
   showResults();
 }

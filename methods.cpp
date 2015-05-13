@@ -31,47 +31,26 @@ void calcHist(IplImage *plane, Histogram &h, int dim)
 	}
 }
 
-void dfsDirectory(char* dir, list<string> &listPath)
+void dfsDirectory(char* path, list<string> &listPath)
 {
-	char szFile[MAX_PATH] = {0};
-	char szFind[MAX_PATH];
-	char root[MAX_PATH];
-
-	WIN32_FIND_DATA FindFileData;
-	strcpy(szFind,dir);
-	strcat(szFind,"\\*.*");
-	HANDLE hFind = FindFirstFile((LPCWSTR)szFind,&FindFileData);
-
-	if(INVALID_HANDLE_VALUE == hFind)
-		return ;
-	while(TRUE)
-	{
-		if(FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
-		{
-			if(FindFileData.cFileName[0]!='.')
-			{
-				strcpy(szFile,dir);
-				strcat(szFile,"\\");
-				strcat(szFile,(char *)FindFileData.cFileName);
-				dfsDirectory(szFile, listPath);
-			}
-		}
-		else
-		{
-			// 只处理 .jpg 文件
-			string tmp((char*)FindFileData.cFileName);
-			if(strcmp(tmp.substr(tmp.length() - 4, 4).c_str(), ".jpg") == 0)
-			{
-				strcpy(root, dir);
-				strcat(root, "\\");
-				strcat(root,(char*)FindFileData.cFileName);
-				listPath.push_back(root);
-			}
-		}
-		if(!FindNextFile(hFind,&FindFileData))
-			break;
-	}
-	FindClose(hFind);
+    //判断路径是否存在
+    QDir dir(convertToQString(path));
+    if(!dir.exists())
+    {
+          return;
+    }
+    //获取所选文件类型过滤器
+    QStringList filters;
+    filters<< QString("*.jpeg") << QString("*.jpg") << QString("*.png") << QString("*.tiff") << QString("*.gif") << QString("*.bmp");
+    //定义迭代器并设置过滤器
+    QDirIterator dirIte(convertToQString(path), filters, QDir::Files | QDir::NoSymLinks, QDirIterator::Subdirectories);
+    while(dirIte.hasNext())
+    {
+        dirIte.next();
+        QFileInfo fileInfo = dirIte.fileInfo();
+        QString absoluteFilePath = fileInfo.absoluteFilePath();
+        listPath.push_back(convertToString(absoluteFilePath));
+    }
 }
 
 void lineToFeature(char* line, list<string> &liststr)
@@ -200,9 +179,25 @@ void showHistogram(Histogram h)
 	cout << endl;
 }
 
-void showResults(list<string> results)
+//void showResults(list<string> results)
+//{
+//	cout << "检索结果:" << endl;
+//	for(list<string>::iterator ite = results.begin(); ite != results.end(); ite++)
+//		cout << *ite << endl;
+//}
+
+string convertToString(QString src)
 {
-	cout << "检索结果:" << endl;
-	for(list<string>::iterator ite = results.begin(); ite != results.end(); ite++)
-		cout << *ite << endl;
+    QString tmp(src);
+    if(tmp.contains("/"))
+      tmp.replace("/", "\\", Qt::CaseInsensitive);
+    return tmp.toStdString();
+}
+
+QString convertToQString(string src)
+{
+    QString tmp(QString::fromLocal8Bit(src.c_str()));
+    if(tmp.contains("\\"))
+      tmp.replace("\\", "/", Qt::CaseInsensitive);
+    return tmp;
 }
