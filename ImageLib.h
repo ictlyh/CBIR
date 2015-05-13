@@ -26,7 +26,7 @@ public:
 	char* getLibDir();				// 获取图像库文件夹名称
 	char* getLibFile();				// 获取图像特征库文件名称
 	list<Image> getImageList();		// 获取图像链表
-	void setLibDir(char* dir);		// 设置图像库文件夹名称
+	void setLibDir(char* dir);	// 设置图像库文件夹名称
 	void setLibFile(char* file);	// 设置图像特征库文件名称
 	void buildImageLib();			// 构建图像特征库
 	bool loadImageLib();			// 从图像特征库文件加载图像特征库

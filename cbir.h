@@ -19,6 +19,8 @@ public:
   ~CBIR();
 
   void showResults();
+  string convertToString(QString src);
+  QString convertToQString(string);
 
 private slots:
   void on_pBLibDir_clicked();

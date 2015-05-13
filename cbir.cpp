@@ -11,11 +11,29 @@ CBIR::CBIR(QWidget *parent) :
     queryImage.setPath("");
     imageLib.setLibDir("");
     results.clear();
+    iteBegin = results.begin();
+    iteEnd = results.begin();
 }
 
 CBIR::~CBIR()
 {
     delete ui;
+}
+
+string CBIR::convertToString(QString src)
+{
+    QString tmp(src);
+    if(tmp.contains("/"))
+      tmp.replace("/", "\\", Qt::CaseInsensitive);
+    return tmp.toStdString();
+}
+
+QString CBIR::convertToQString(string src)
+{
+    QString tmp(QString::fromLocal8Bit(src.c_str()));
+    if(tmp.contains("\\"))
+      tmp.replace("\\", "/", Qt::CaseInsensitive);
+    return tmp;
 }
 
 void CBIR::showResults()
@@ -28,7 +46,7 @@ void CBIR::showResults()
     if(iteEnd != results.end())
       {
         string tmp = *iteEnd;
-        img1->load(QString(tmp.c_str()));
+        img1->load(convertToQString(tmp));
         *img1 = img1->scaled(ui->lbRes1->size(), Qt::KeepAspectRatio);
         ui->lbRes1->setPixmap(QPixmap::fromImage(*img1));
         iteEnd++;
@@ -36,7 +54,7 @@ void CBIR::showResults()
     if(iteEnd != results.end())
       {
         string tmp = *iteEnd;
-        img2->load(QString(tmp.c_str()));
+        img2->load(convertToQString(tmp));
         *img2 = img2->scaled(ui->lbRes2->size(), Qt::KeepAspectRatio);
         ui->lbRes2->setPixmap(QPixmap::fromImage(*img2));
         iteEnd++;
@@ -44,7 +62,7 @@ void CBIR::showResults()
     if(iteEnd != results.end())
       {
         string tmp = *iteEnd;
-        img3->load(QString(tmp.c_str()));
+        img3->load(convertToQString(tmp));
         *img3 = img3->scaled(ui->lbRes3->size(), Qt::KeepAspectRatio);
         ui->lbRes3->setPixmap(QPixmap::fromImage(*img3));
         iteEnd++;
@@ -52,7 +70,7 @@ void CBIR::showResults()
     if(iteEnd != results.end())
       {
         string tmp = *iteEnd;
-        img4->load(QString(tmp.c_str()));
+        img4->load(convertToQString(tmp));
         *img4 = img4->scaled(ui->lbRes4->size(), Qt::KeepAspectRatio);
         ui->lbRes4->setPixmap(QPixmap::fromImage(*img4));
         iteEnd++;
@@ -61,12 +79,13 @@ void CBIR::showResults()
 
 void CBIR::on_pBLibDir_clicked()
 {
-    QString libDirectory = QFileDialog::getExistingDirectory(this, QString::fromLocal8Bit("选择图像库目录"),QString::fromLocal8Bit("."));
+    QString libDirectory = QFileDialog::getExistingDirectory(this, QString::fromLocal8Bit("选择图像库目录"));
     // Press Cancle
     if(libDirectory == NULL)
       return ;
-    // 为 imageLib.setLibDir 有问题
-    imageLib.setLibDir((char*)libDirectory.toStdString().c_str());
+    char tmp[256];
+    strcpy_s(tmp, convertToString(libDirectory).c_str());
+    imageLib.setLibDir(tmp);
     ui->leLibDir->setText(libDirectory);
 }
 
@@ -76,8 +95,9 @@ void CBIR::on_pBLibFile_clicked()
     // Press Cancle
     if(libFile == NULL)
       return ;
-    //QDebug << "The lib file is : " << libFile << endl;
-    imageLib.setLibFile((char*)libFile.toStdString().c_str());
+    char tmp[256];
+    strcpy_s(tmp, convertToString(libFile).c_str());
+    imageLib.setLibFile(tmp);
     ui->leLibFile->setText(libFile);
 }
 
@@ -125,7 +145,7 @@ void CBIR::on_pBSetQuery_clicked()
       }
     *img = img->scaled(ui->lbQueryImage->size(), Qt::KeepAspectRatio);
     ui->lbQueryImage->setPixmap(QPixmap::fromImage(*img));
-    queryImage.setPath(query.toStdString());
+    queryImage.setPath(convertToString(query));
     queryImage.calcFeature();
     delete img;
 }
@@ -149,7 +169,6 @@ void CBIR::on_pBReSearch_clicked()
     // 如何获取反馈图像??
     list<string> feedback;
     results = searcher.reSearch(queryImage, feedback, imageLib);
-    //QDebug << "The result is :" << results << endl;
     iteBegin = results.begin();
     showResults();
 }
