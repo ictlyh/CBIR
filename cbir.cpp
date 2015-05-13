@@ -26,6 +26,7 @@ void CBIR::showResults()
       {
         string tmp = *iteEnd;
         img1->load(QString(tmp.c_str()));
+        *img1 = img1->scaled(ui->lbRes1->size(), Qt::KeepAspectRatio);
         ui->lbRes1->setPixmap(QPixmap::fromImage(*img1));
         iteEnd++;
       }
@@ -33,6 +34,7 @@ void CBIR::showResults()
       {
         string tmp = *iteEnd;
         img2->load(QString(tmp.c_str()));
+        *img2 = img2->scaled(ui->lbRes2->size(), Qt::KeepAspectRatio);
         ui->lbRes2->setPixmap(QPixmap::fromImage(*img2));
         iteEnd++;
       }
@@ -40,6 +42,7 @@ void CBIR::showResults()
       {
         string tmp = *iteEnd;
         img3->load(QString(tmp.c_str()));
+        *img3 = img3->scaled(ui->lbRes3->size(), Qt::KeepAspectRatio);
         ui->lbRes3->setPixmap(QPixmap::fromImage(*img3));
         iteEnd++;
       }
@@ -47,6 +50,7 @@ void CBIR::showResults()
       {
         string tmp = *iteEnd;
         img4->load(QString(tmp.c_str()));
+        *img4 = img4->scaled(ui->lbRes4->size(), Qt::KeepAspectRatio);
         ui->lbRes4->setPixmap(QPixmap::fromImage(*img4));
         iteEnd++;
       }
@@ -91,6 +95,7 @@ void CBIR::on_pBSetQuery_clicked()
         delete img;
         return;
       }
+    *img = img->scaled(ui->lbQueryImage->size(), Qt::KeepAspectRatio);
     ui->lbQueryImage->setPixmap(QPixmap::fromImage(*img));
     queryImage.setPath(query.toStdString());
     queryImage.calcFeature();
