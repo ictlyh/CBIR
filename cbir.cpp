@@ -58,7 +58,7 @@ void CBIR::showResults()
 
 void CBIR::on_pBLibDir_clicked()
 {
-    QString libDirectory = QFileDialog::getExistingDirectory(this, tr("选择图像库目录"),tr("."));
+    QString libDirectory = QFileDialog::getExistingDirectory(this, QString::fromLocal8Bit("选择图像库目录"),QString::fromLocal8Bit("."));
     //QDebug << "The lib directory is :" << libDirectory << endl;
     imageLib.setLibDir((char*)libDirectory.toStdString().c_str());
     ui->leLibDir->setText(libDirectory);
@@ -66,7 +66,7 @@ void CBIR::on_pBLibDir_clicked()
 
 void CBIR::on_pBLibFile_clicked()
 {
-    QString libFile = QFileDialog::getOpenFileName(this, tr("选择图像库文件"), tr("Text (*.txt)"));
+    QString libFile = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("选择图像库文件"), QString::fromLocal8Bit("Text (*.txt)"));
     //QDebug << "The lib file is : " << libFile << endl;
     imageLib.setLibFile((char*)libFile.toStdString().c_str());
     ui->leLibFile->setText(libFile);
@@ -86,12 +86,12 @@ void CBIR::on_pBLoadLib_clicked()
 
 void CBIR::on_pBSetQuery_clicked()
 {
-    QString query = QFileDialog::getOpenFileName(this, tr("选择查询图像"), ".", tr("Images (*.png *.bmp *.jpg *.tif *.GIF )"));
+    QString query = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("选择查询图像"), ".", QString::fromLocal8Bit("Images (*.png *.bmp *.jpg *.tif *.GIF )"));
     // 在 lbQueryImage 中显示图像，并构建查询图像
     QImage * img = new QImage();
     if(!img->load(query))
       {
-        QMessageBox::information(this, tr("打开图像失败"), tr("打开图像失败!"));
+        QMessageBox::information(this, QString::fromLocal8Bit("打开图像失败"), QString::fromLocal8Bit("打开图像失败!"));
         delete img;
         return;
       }
@@ -124,7 +124,7 @@ void CBIR::on_pBUp_clicked()
 {
     if(iteBegin == results.begin())
       {
-        QMessageBox::information(this, tr("已经是第一页"),tr("已经是第一页"));
+        QMessageBox::information(this, QString::fromLocal8Bit("已经是第一页"), QString::fromLocal8Bit("已经是第一页"));
         return ;
       }
     iteBegin = iteBegin--;
@@ -138,7 +138,7 @@ void CBIR::on_pBNext_clicked()
 {
   if(iteEnd == results.end())
     {
-      QMessageBox::information(this, tr("已经是最后一页"), tr("已经是最后一页"));
+      QMessageBox::information(this, QString::fromLocal8Bit("已经是最后一页"), QString::fromLocal8Bit("已经是最后一页"));
       return ;
     }
   iteBegin = iteEnd;
