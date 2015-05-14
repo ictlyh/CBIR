@@ -31,15 +31,6 @@ list<string> Searcher::search(Image query, ImageLib imgLib)
 	list<string> result;
 	list<Image> images = imgLib.getImageList();
 
-	// 若TopK的值大于图像库中图像的数目，直接返回所有图像
-	if(TopK > images.size())
-	{
-		list<Image>::iterator ite = images.begin();
-		for(; ite != images.end(); ite++)
-			result.push_back(ite->getPath());
-		return result;
-	}
-
 	Similarity similarity;
 
 	// 用于保存图像库中每个图像和查询图像的相似度
@@ -60,7 +51,7 @@ list<string> Searcher::search(Image query, ImageLib imgLib)
 	for(int i = 0; i < TopK; i++)
 	{
 		float max = 0.0;
-		int index = 0;
+		int index = -1;
 		for(int j = 0; j < images.size(); j++)
 		{
 			if(sim[j] > max && topK[j] == false)
@@ -69,20 +60,13 @@ list<string> Searcher::search(Image query, ImageLib imgLib)
 				index = j;
 			}
 		}
+		// 图像库数目小于 TopK
+		if(index == -1)
+		  break ;
 		topK[index] = true;
 		string str = getImagePath(images, index);
 		if(str.length() != 0)
-		{
-			/*Image tmp = *ite;
-			image img(tmp.getpath());
-			colorfeature tmpcolor = tmp.getfeature().getcolorfeature();
-			shapefeature tmpshape = tmp.getfeature().getshapefeature();
-			histogram features[] = { tmpcolor.geth(), tmpcolor.gets(), tmpcolor.getv(),
-				tmpcolor.getgray(), tmpshape.gethorizontal(), tmpshape.getvertical() };
-			img.setfeature(features);
-			free(features);*/
 			result.push_back(str);
-		}
 	}
 	return result;
 }

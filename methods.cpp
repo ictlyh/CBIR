@@ -49,7 +49,6 @@ void dfsDirectory(char* path, list<string> &listPath)
         dirIte.next();
         QFileInfo fileInfo = dirIte.fileInfo();
         QString absoluteFilePath = fileInfo.absoluteFilePath();
-        cout << "Qt absolute path : " << absoluteFilePath.toStdString() << endl;
         listPath.push_back(convertToString(absoluteFilePath));
     }
 }

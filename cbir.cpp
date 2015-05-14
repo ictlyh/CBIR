@@ -148,7 +148,13 @@ void CBIR::on_pBSearch_clicked()
     }
     // 检索并显示结果
     searcher.setTopK(8);
+    results.clear();
     results = searcher.search(queryImage, imageLib);
+    // 清空现有的显示
+    ui->lbRes1->clear();
+    ui->lbRes2->clear();
+    ui->lbRes3->clear();
+    ui->lbRes4->clear();
     begin = 0;
     showResults();
     // 清空反馈情况
@@ -167,7 +173,13 @@ void CBIR::on_pBReSearch_clicked()
        return ;
     }
     searcher.setTopK(8);
+    results.clear();
     results = searcher.reSearch(queryImage, feedback, imageLib);
+    // 清空现有的显示
+    ui->lbRes1->clear();
+    ui->lbRes2->clear();
+    ui->lbRes3->clear();
+    ui->lbRes4->clear();
     begin = 0;
     showResults();
     // 清空反馈情况
@@ -185,6 +197,11 @@ void CBIR::on_pBUp_clicked()
         QMessageBox::information(this, QString::fromLocal8Bit("已经是第一页"), QString::fromLocal8Bit("已经是第一页"));
         return ;
       }
+    // 清空现有的显示
+    ui->lbRes1->clear();
+    ui->lbRes2->clear();
+    ui->lbRes3->clear();
+    ui->lbRes4->clear();
     begin = begin - 4;
     showResults();
     list<string>::iterator ite = results.begin();
@@ -243,6 +260,11 @@ void CBIR::on_pBNext_clicked()
       QMessageBox::information(this, QString::fromLocal8Bit("已经是最后一页"), QString::fromLocal8Bit("已经是最后一页"));
       return ;
     }
+  // 清空现有的显示
+  ui->lbRes1->clear();
+  ui->lbRes2->clear();
+  ui->lbRes3->clear();
+  ui->lbRes4->clear();
   begin = end;
   showResults();
   list<string>::iterator ite = results.begin();
