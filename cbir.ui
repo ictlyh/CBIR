@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>670</width>
-    <height>364</height>
+    <height>420</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -222,7 +222,7 @@
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>150</y>
+      <y>160</y>
       <width>160</width>
       <height>120</height>
      </rect>
@@ -238,7 +238,7 @@
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>150</y>
+      <y>160</y>
       <width>160</width>
       <height>120</height>
      </rect>
@@ -254,7 +254,7 @@
     <property name="geometry">
      <rect>
       <x>420</x>
-      <y>280</y>
+      <y>310</y>
       <width>60</width>
       <height>20</height>
      </rect>
@@ -267,13 +267,68 @@
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>280</y>
+      <y>310</y>
       <width>60</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
      <string>下一页</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox1">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>140</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox2">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>140</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox3">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>280</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox4">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>280</y>
+      <width>20</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

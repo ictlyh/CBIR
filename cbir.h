@@ -39,13 +39,22 @@ private slots:
 
   void on_pBNext_clicked();
 
+  void on_checkBox1_stateChanged(int arg1);
+
+  void on_checkBox2_stateChanged(int arg1);
+
+  void on_checkBox3_stateChanged(int arg1);
+
+  void on_checkBox4_stateChanged(int arg1);
+
 private:
-  Ui::CBIR *ui;
-  ImageLib imageLib;
-  Searcher searcher;
-  Image queryImage;
-  list<string> results;
-  int begin, end;
+  Ui::CBIR *ui;           // GUI
+  ImageLib imageLib;      // 特征图像库
+  Searcher searcher;      // 搜索器
+  Image queryImage;       // 检索图像
+  list<string> results;   // 检索结果图像路径列表
+  list<string> feedback;  // 反馈图像路径列表
+  int begin, end;         // 结果显示中的开始和结束index
 };
 
 #endif // CBIR_H

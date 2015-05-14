@@ -49,6 +49,7 @@ void dfsDirectory(char* path, list<string> &listPath)
         dirIte.next();
         QFileInfo fileInfo = dirIte.fileInfo();
         QString absoluteFilePath = fileInfo.absoluteFilePath();
+        cout << "Qt absolute path : " << absoluteFilePath.toStdString() << endl;
         listPath.push_back(convertToString(absoluteFilePath));
     }
 }
@@ -200,4 +201,15 @@ QString convertToQString(string src)
     if(tmp.contains("\\"))
       tmp.replace("\\", "/", Qt::CaseInsensitive);
     return tmp;
+}
+
+bool containsString(list<string> listString, string str)
+{
+  for(list<string>::iterator ite = listString.begin(); ite != listString.end(); ite++)
+    {
+      string tmp(*ite);
+      if(strcmp(str.c_str(), tmp.c_str()) == 0)
+        return true;
+    }
+  return false;
 }

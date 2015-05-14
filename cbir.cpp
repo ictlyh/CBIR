@@ -9,9 +9,11 @@ CBIR::CBIR(QWidget *parent) :
   ui(new Ui::CBIR)
 {
     ui->setupUi(this);
+    // 初始化
     queryImage.setPath("");
     imageLib.setLibDir("");
     results.clear();
+    feedback.clear();
     begin = 0;
     end = 0;
 }
@@ -101,7 +103,6 @@ void CBIR::on_pBBuildLib_clicked()
     QMessageBox::information(this, QString::fromLocal8Bit("构建特征库完成"), QString::fromLocal8Bit("构建特征库完成"));
     // 保存图像特征库
     imageLib.saveImageLib();
-    //QMessageBox::information(this, QString::fromLocal8Bit("图像库规模"), QString("%1").arg(imageLib.getImageList().size()));
 }
 
 void CBIR::on_pBLoadLib_clicked()
@@ -148,9 +149,14 @@ void CBIR::on_pBSearch_clicked()
     // 检索并显示结果
     searcher.setTopK(8);
     results = searcher.search(queryImage, imageLib);
-    //QMessageBox::information(this, QString::fromLocal8Bit("检索结果数目"), QString("%1").arg(results.size()));
     begin = 0;
     showResults();
+    // 清空反馈情况
+    feedback.clear();
+    ui->checkBox1->setCheckState(Qt::Unchecked);
+    ui->checkBox2->setCheckState(Qt::Unchecked);
+    ui->checkBox3->setCheckState(Qt::Unchecked);
+    ui->checkBox4->setCheckState(Qt::Unchecked);
 }
 
 void CBIR::on_pBReSearch_clicked()
@@ -160,11 +166,16 @@ void CBIR::on_pBReSearch_clicked()
        QMessageBox::information(this, QString::fromLocal8Bit("请选择检索图像"), QString::fromLocal8Bit("请选择检索图像"));
        return ;
     }
-    // 如何获取反馈图像??
-    list<string> feedback;
+    searcher.setTopK(8);
     results = searcher.reSearch(queryImage, feedback, imageLib);
     begin = 0;
     showResults();
+    // 清空反馈情况
+    feedback.clear();
+    ui->checkBox1->setCheckState(Qt::Unchecked);
+    ui->checkBox2->setCheckState(Qt::Unchecked);
+    ui->checkBox3->setCheckState(Qt::Unchecked);
+    ui->checkBox4->setCheckState(Qt::Unchecked);
 }
 
 void CBIR::on_pBUp_clicked()
@@ -176,6 +187,53 @@ void CBIR::on_pBUp_clicked()
       }
     begin = begin - 4;
     showResults();
+    list<string>::iterator ite = results.begin();
+    string path;
+    for(int i = 0; i < begin && ite != results.end(); i++, ite++)
+      ;
+    if(ite == results.end())
+        return ;
+    else
+      {
+        path = *ite;
+        if(containsString(feedback, path))
+          ui->checkBox1->setCheckState(Qt::Checked);
+        else
+          ui->checkBox1->setCheckState(Qt::Unchecked);
+      }
+    ite++;
+    if(ite == results.end())
+        return ;
+    else
+      {
+        path = *ite;
+        if(containsString(feedback, path))
+          ui->checkBox2->setCheckState(Qt::Checked);
+        else
+          ui->checkBox2->setCheckState(Qt::Unchecked);
+      }
+    ite++;
+    if(ite == results.end())
+        return ;
+    else
+      {
+        path = *ite;
+        if(containsString(feedback, path))
+          ui->checkBox3->setCheckState(Qt::Checked);
+        else
+          ui->checkBox3->setCheckState(Qt::Unchecked);
+      }
+    ite++;
+    if(ite == results.end())
+        return ;
+    else
+      {
+        path = *ite;
+        if(containsString(feedback, path))
+          ui->checkBox4->setCheckState(Qt::Checked);
+        else
+          ui->checkBox4->setCheckState(Qt::Unchecked);
+      }
 }
 
 void CBIR::on_pBNext_clicked()
@@ -187,4 +245,103 @@ void CBIR::on_pBNext_clicked()
     }
   begin = end;
   showResults();
+  list<string>::iterator ite = results.begin();
+  string path;
+  for(int i = 0; i < begin && ite != results.end(); i++, ite++)
+    ;
+  if(ite == results.end())
+      return ;
+  else
+    {
+      path = *ite;
+      if(containsString(feedback, path))
+        ui->checkBox1->setCheckState(Qt::Checked);
+      else
+        ui->checkBox1->setCheckState(Qt::Unchecked);
+    }
+  ite++;
+  if(ite == results.end())
+      return ;
+  else
+    {
+      path = *ite;
+      if(containsString(feedback, path))
+        ui->checkBox2->setCheckState(Qt::Checked);
+      else
+        ui->checkBox2->setCheckState(Qt::Unchecked);
+    }
+  ite++;
+  if(ite == results.end())
+      return ;
+  else
+    {
+      path = *ite;
+      if(containsString(feedback, path))
+        ui->checkBox3->setCheckState(Qt::Checked);
+      else
+        ui->checkBox3->setCheckState(Qt::Unchecked);
+    }
+  ite++;
+  if(ite == results.end())
+      return ;
+  else
+    {
+      path = *ite;
+      if(containsString(feedback, path))
+        ui->checkBox4->setCheckState(Qt::Checked);
+      else
+        ui->checkBox4->setCheckState(Qt::Unchecked);
+    }
+}
+
+void CBIR::on_checkBox1_stateChanged(int arg1)
+{
+  list<string>::iterator ite = results.begin();
+  for(int i = 0; i < begin && ite != results.end(); i++, ite++)
+    ;
+  if(ite == results.end())
+    return ;
+  if(arg1 == 0 && containsString(feedback, *ite))
+    feedback.remove(*ite);
+  if(arg1 == 2 && !containsString(feedback, *ite))
+    feedback.push_back(*ite);
+}
+
+void CBIR::on_checkBox2_stateChanged(int arg1)
+{
+  list<string>::iterator ite = results.begin();
+  for(int i = 0; i < begin + 1 && ite != results.end(); i++, ite++)
+    ;
+  if(ite == results.end())
+    return ;
+  if(arg1 == 0 && containsString(feedback, *ite))
+    feedback.remove(*ite);
+  if(arg1 == 2 && !containsString(feedback, *ite))
+    feedback.push_back(*ite);
+}
+
+void CBIR::on_checkBox3_stateChanged(int arg1)
+{
+  list<string>::iterator ite = results.begin();
+  for(int i = 0; i < begin + 2 && ite != results.end(); i++, ite++)
+    ;
+  if(ite == results.end())
+    return ;
+  if(arg1 == 0 && containsString(feedback, *ite))
+    feedback.remove(*ite);
+  if(arg1 == 2 && !containsString(feedback, *ite))
+    feedback.push_back(*ite);
+}
+
+void CBIR::on_checkBox4_stateChanged(int arg1)
+{
+  list<string>::iterator ite = results.begin();
+  for(int i = 0; i < begin + 3 && ite != results.end(); i++, ite++)
+    ;
+  if(ite == results.end())
+    return ;
+  if(arg1 == 0 && containsString(feedback, *ite))
+    feedback.remove(*ite);
+  if(arg1 == 2 && !containsString(feedback, *ite))
+    feedback.push_back(*ite);
 }

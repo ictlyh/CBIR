@@ -13,8 +13,8 @@ using namespace std;
  */
 class ImageLib {
 private:
-	char libDir[256];			// 图像库顶层文件夹名称
-	char libFile[256];			// 图像特征库文件名称
+	char libDir[256];	// 图像库顶层文件夹名称
+	char libFile[256];	// 图像特征库文件名称
 	list<Image> imageList;	// 图像链表
 
 public:
@@ -23,14 +23,14 @@ public:
 	ImageLib();
 	~ImageLib();
 
-	char* getLibDir();				// 获取图像库文件夹名称
-	char* getLibFile();				// 获取图像特征库文件名称
-	list<Image> getImageList();		// 获取图像链表
+	char* getLibDir();	// 获取图像库文件夹名称
+	char* getLibFile();	// 获取图像特征库文件名称
+	list<Image> getImageList();	// 获取图像链表
 	void setLibDir(char* dir);	// 设置图像库文件夹名称
 	void setLibFile(char* file);	// 设置图像特征库文件名称
-	void buildImageLib();			// 构建图像特征库
-	bool loadImageLib();			// 从图像特征库文件加载图像特征库
-	bool saveImageLib();			// 保存图像特征库到图像特征库文件
+	void buildImageLib();		// 构建图像特征库
+	bool loadImageLib();		// 从图像特征库文件加载图像特征库
+	bool saveImageLib();		// 保存图像特征库到图像特征库文件
 };
 
 #endif
