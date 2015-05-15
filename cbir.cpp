@@ -16,6 +16,7 @@ CBIR::CBIR(QWidget *parent) :
     feedback.clear();
     begin = 0;
     end = 0;
+    ui->leColorWeight->setText(QString("%1").arg(searcher.getColorWeight()));
 }
 
 CBIR::~CBIR()
@@ -146,8 +147,17 @@ void CBIR::on_pBSearch_clicked()
        QMessageBox::information(this, QString::fromLocal8Bit("请选择检索图像"), QString::fromLocal8Bit("请选择检索图像"));
        return ;
     }
+    // 设置权重
+    bool flag;
+    float colorWeight = ui->leColorWeight->text().toFloat(&flag);
+    if(!flag || colorWeight < 0 || colorWeight > 1)
+      {
+        QMessageBox::information(this, QString::fromLocal8Bit("请设置有效权重"), QString::fromLocal8Bit("有效区间[0.0,1.0]"));
+        return ;
+      }
+    searcher.setColorWeight(colorWeight);
+    searcher.setShapeWeight(1 - colorWeight);
     // 检索并显示结果
-    searcher.setTopK(8);
     results.clear();
     results = searcher.search(queryImage, imageLib);
     // 清空现有的显示
@@ -172,7 +182,17 @@ void CBIR::on_pBReSearch_clicked()
        QMessageBox::information(this, QString::fromLocal8Bit("请选择检索图像"), QString::fromLocal8Bit("请选择检索图像"));
        return ;
     }
-    searcher.setTopK(8);
+    // 设置权重
+    bool flag;
+    float colorWeight = ui->leColorWeight->text().toFloat(&flag);
+    if(!flag || colorWeight < 0 || colorWeight > 1)
+      {
+        QMessageBox::information(this, QString::fromLocal8Bit("请设置有效权重"), QString::fromLocal8Bit("有效区间[0.0,1.0]"));
+        return ;
+      }
+    searcher.setColorWeight(colorWeight);
+    searcher.setShapeWeight(1 - colorWeight);
+    // 清空之前检索结果重新检索
     results.clear();
     results = searcher.reSearch(queryImage, feedback, imageLib);
     // 清空现有的显示

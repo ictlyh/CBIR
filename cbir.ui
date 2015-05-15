@@ -163,8 +163,8 @@
    <widget class="QPushButton" name="pBSearch">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>280</y>
+      <x>70</x>
+      <y>310</y>
       <width>60</width>
       <height>20</height>
      </rect>
@@ -177,7 +177,7 @@
     <property name="geometry">
      <rect>
       <x>160</x>
-      <y>280</y>
+      <y>310</y>
       <width>60</width>
       <height>20</height>
      </rect>
@@ -329,6 +329,29 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbColorWeight">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>280</y>
+      <width>100</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>颜色特征权重[0,1]</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="leColorWeight">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>280</y>
+      <width>40</width>
+      <height>20</height>
+     </rect>
     </property>
    </widget>
   </widget>

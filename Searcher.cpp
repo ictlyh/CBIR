@@ -4,7 +4,7 @@
 
 Searcher::Searcher()
 {
-	TopK = 2;
+	TopK = 8;
 }
 
 Searcher::Searcher(int k)
@@ -26,12 +26,30 @@ int Searcher::getTopK()
 	return TopK;
 }
 
+void Searcher::setColorWeight(float weight)
+{
+  similarity.setColorWeight(weight);
+}
+
+void Searcher::setShapeWeight(float weight)
+{
+  similarity.setShapeWeight(weight);
+}
+
+float Searcher::getColorWeight()
+{
+  return similarity.getColorWeight();
+}
+
+float Searcher::getShapeWeight()
+{
+  return similarity.getShapeWeight();
+}
+
 list<string> Searcher::search(Image query, ImageLib imgLib)
 {
 	list<string> result;
 	list<Image> images = imgLib.getImageList();
-
-	Similarity similarity;
 
 	// 用于保存图像库中每个图像和查询图像的相似度
 	float *sim = (float*)malloc(sizeof(float) * images.size());
