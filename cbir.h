@@ -47,6 +47,8 @@ private slots:
 
   void on_checkBox4_stateChanged(int arg1);
 
+  void on_actionHelp_triggered();
+
 private:
   Ui::CBIR *ui;           // GUI
   ImageLib imageLib;      // ÌØÕ÷Í¼Ïñ¿â

@@ -17,6 +17,7 @@ CBIR::CBIR(QWidget *parent) :
     begin = 0;
     end = 0;
     ui->leColorWeight->setText(QString("%1").arg(searcher.getColorWeight()));
+    ui->statusBar->clearMessage();
 }
 
 CBIR::~CBIR()
@@ -26,6 +27,7 @@ CBIR::~CBIR()
 
 void CBIR::showResults()
 {
+    ui->statusBar->showMessage(QString::fromLocal8Bit("正在显示检索结果..."));
     list<string>::iterator ite = results.begin();
     for(int i = 0; i < begin; i++,ite++)
       ;
@@ -65,12 +67,12 @@ void CBIR::showResults()
         ui->lbRes4->setPixmap(QPixmap::fromImage(*img4));
         ite++;
         end++;
-      }
+      }    
 }
 
 void CBIR::on_pBLibDir_clicked()
 {
-    QString libDirectory = QFileDialog::getExistingDirectory(this, QString::fromLocal8Bit("选择图像库目录"));
+    QString libDirectory = QFileDialog::getExistingDirectory(this, QString::fromLocal8Bit("选择图像库目录"), ".");
     // Press Cancle
     if(libDirectory == NULL)
       return ;
@@ -82,7 +84,7 @@ void CBIR::on_pBLibDir_clicked()
 
 void CBIR::on_pBLibFile_clicked()
 {
-    QString libFile = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("选择图像库文件"));
+    QString libFile = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("选择图像库文件"), ".", QString::fromLocal8Bit("Text (*.txt)"));
     // Press Cancle
     if(libFile == NULL)
       return ;
@@ -100,18 +102,23 @@ void CBIR::on_pBBuildLib_clicked()
         return ;
       }
     // 构建图像特征库
+    ui->statusBar->showMessage(QString::fromLocal8Bit("正在构建图像特征库，请耐心等待..."));
     imageLib.buildImageLib();
     QMessageBox::information(this, QString::fromLocal8Bit("构建特征库完成"), QString::fromLocal8Bit("构建特征库完成"));
     // 保存图像特征库
+    ui->statusBar->showMessage(QString::fromLocal8Bit("正在将图像特征库写入文件，请耐心等待..."));
     imageLib.saveImageLib();
+    ui->statusBar->showMessage(QString::fromLocal8Bit("图像特征库写入文件完成"));
 }
 
 void CBIR::on_pBLoadLib_clicked()
 {
     // 加载图像特征库文件
+    ui->statusBar->showMessage(QString::fromLocal8Bit("正在加载图像特征库，请耐心等待..."));
     if(imageLib.loadImageLib())
       {
         QMessageBox::information(this, QString::fromLocal8Bit("加载特征库完成"), QString::fromLocal8Bit("加载特征库完成"));
+        ui->statusBar->clearMessage();
       }
     else
       {
@@ -158,6 +165,7 @@ void CBIR::on_pBSearch_clicked()
     searcher.setColorWeight(colorWeight);
     searcher.setShapeWeight(1 - colorWeight);
     // 检索并显示结果
+    ui->statusBar->showMessage(QString::fromLocal8Bit("正在查询，请耐心等待..."));
     results.clear();
     results = searcher.search(queryImage, imageLib);
     // 清空现有的显示
@@ -193,6 +201,7 @@ void CBIR::on_pBReSearch_clicked()
     searcher.setColorWeight(colorWeight);
     searcher.setShapeWeight(1 - colorWeight);
     // 清空之前检索结果重新检索
+    ui->statusBar->showMessage(QString::fromLocal8Bit("正在查询，请耐心等待..."));
     results.clear();
     results = searcher.reSearch(queryImage, feedback, imageLib);
     // 清空现有的显示
@@ -386,4 +395,15 @@ void CBIR::on_checkBox4_stateChanged(int arg1)
     feedback.remove(*ite);
   if(arg1 == 2 && !containsString(feedback, *ite))
     feedback.push_back(*ite);
+}
+
+void CBIR::on_actionHelp_triggered()
+{
+    QString content;
+    content.append(QString::fromLocal8Bit("使用前请先阅读 Readme.html 文件"));
+    content.append("\n");
+    content.append(QString::fromLocal8Bit("源代码:https://github.com/ictlyh/CBIR"));
+    content.append("\n");
+    content.append(QString::fromLocal8Bit("Powered by: 罗远浩 黄博阳"));
+    QMessageBox::information(this, QString::fromLocal8Bit("Help"), content);
 }

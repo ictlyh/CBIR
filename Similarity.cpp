@@ -35,6 +35,7 @@ float Similarity::getShapeWeight()
 {
 	return shapeWeight;
 }
+
 /*
  * 采用直方图相交计算直方图相似度，也可以采用卡方等方法
  */

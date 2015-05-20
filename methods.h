@@ -26,8 +26,8 @@ void lineToFeature(char* line, list<string> &liststr);	// 将读取的行数据转化为一
 Image newQueryByFeedback(list<string> feedbacks, Image query);	// 根据反馈计算二次查询图像
 string getImagePath(list<Image> images, int index);	// 获取图像库列表某个图像的路径
 void showHistogram(Histogram h);			// 输出直方图
-string convertToString(QString src);
-QString convertToQString(string);
+string convertToString(QString src);                    // 转换 QString 为 string
+QString convertToQString(string);                       // 转换 string 为 QString
 bool containsString(list<string> listString, string str);
 
 #endif

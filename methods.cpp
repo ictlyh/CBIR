@@ -179,19 +179,13 @@ void showHistogram(Histogram h)
 	cout << endl;
 }
 
-//void showResults(list<string> results)
-//{
-//	cout << "¼ìË÷½á¹û:" << endl;
-//	for(list<string>::iterator ite = results.begin(); ite != results.end(); ite++)
-//		cout << *ite << endl;
-//}
-
 string convertToString(QString src)
 {
     QString tmp(src);
     if(tmp.contains("/"))
       tmp.replace("/", "\\", Qt::CaseInsensitive);
-    return tmp.toStdString();
+    string str(tmp.toLocal8Bit().data());
+    return str;
 }
 
 QString convertToQString(string src)
